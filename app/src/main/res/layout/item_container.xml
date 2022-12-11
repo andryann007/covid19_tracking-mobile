@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="15dp"
+    android:layout_marginVertical="5dp"
+    android:stretchColumns="1,2,3"
+    android:background="@android:color/background_dark">
+
+    <TableRow tools:ignore="UselessParent">
+        <TextView
+            android:id="@+id/tvContinentName"
+            android:layout_column="1"
+            android:fontFamily="sans-serif"
+            android:text="@string/continent"
+            android:textAlignment="center"
+            android:textColor="@android:color/background_light"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:id="@+id/tvContinentCases"
+            android:layout_column="1"
+            android:layout_marginHorizontal="15dp"
+            android:fontFamily="sans-serif"
+            android:text="@string/cases"
+            android:textAlignment="center"
+            android:textColor="@android:color/background_light"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:id="@+id/tvContinentDeath"
+            android:layout_column="1"
+            android:layout_marginHorizontal="15dp"
+            android:fontFamily="sans-serif"
+            android:text="@string/death"
+            android:textAlignment="center"
+            android:textColor="@android:color/background_light"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:id="@+id/tvContinentRecovered"
+            android:layout_column="1"
+            android:layout_marginHorizontal="15dp"
+            android:fontFamily="sans-serif"
+            android:text="@string/recover"
+            android:textAlignment="center"
+            android:textColor="@android:color/background_light"
+            android:textSize="14sp"/>
+
+    </TableRow>
+
+</TableLayout>
