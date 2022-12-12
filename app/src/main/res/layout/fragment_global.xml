@@ -5,10 +5,22 @@
     android:layout_height="match_parent"
     tools:context=".ui.GlobalFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/contentView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_marginHorizontal="10dp"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/layoutCountryData"
+            layout="@layout/global_layout"/>
+    </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 
 </FrameLayout>

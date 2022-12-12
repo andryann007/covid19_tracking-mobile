@@ -25,6 +25,57 @@
         android:layout_marginBottom="10dp"
         android:background="@android:color/background_light" />
 
+    <TableLayout android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:stretchColumns="1,2,3"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginVertical="5dp">
+        <TableRow>
+            <TextView
+                android:id="@+id/titleContinentName"
+                android:layout_column="1"
+                android:fontFamily="sans-serif"
+                android:text="@string/continent"
+                android:textAlignment="center"
+                android:textColor="@android:color/background_light"
+                android:textSize="14sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/titleContinentCases"
+                android:layout_column="1"
+                android:layout_marginHorizontal="15dp"
+                android:fontFamily="sans-serif"
+                android:text="@string/cases"
+                android:textAlignment="center"
+                android:textColor="@android:color/background_light"
+                android:textSize="14sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/titleContinentDeath"
+                android:layout_column="1"
+                android:layout_marginHorizontal="15dp"
+                android:fontFamily="sans-serif"
+                android:text="@string/death"
+                android:textAlignment="center"
+                android:textColor="@android:color/background_light"
+                android:textSize="14sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/titleContinentRecovered"
+                android:layout_column="1"
+                android:layout_marginHorizontal="15dp"
+                android:fontFamily="sans-serif"
+                android:text="@string/recover"
+                android:textAlignment="center"
+                android:textColor="@android:color/background_light"
+                android:textSize="14sp"
+                android:textStyle="bold"/>
+        </TableRow>
+    </TableLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvContinentData"
         android:layout_width="match_parent"

@@ -3,18 +3,18 @@ package com.example.covid19tracking.api;
 import com.google.gson.annotations.SerializedName;
 
 public class ContinentResult {
-    @SerializedName("cases")
-    int Case;
+    @SerializedName("continent")
+    String continent;
 
-    public int getCase() {
-        return Case;
+    public String getContinent() {
+        return continent;
     }
 
-    @SerializedName("todayCases")
-    int todayCase;
+    @SerializedName("cases")
+    int totalCase;
 
-    public int getTodayCase() {
-        return todayCase;
+    public int getTotalCase() {
+        return totalCase;
     }
 
     @SerializedName("deaths")

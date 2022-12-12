@@ -1,11 +1,11 @@
 package com.example.covid19tracking.ui;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -15,6 +15,7 @@ import com.example.covid19tracking.R;
 import com.example.covid19tracking.adapter.ContinentDataAdapter;
 import com.example.covid19tracking.api.ApiClient;
 import com.example.covid19tracking.api.ApiService;
+import com.example.covid19tracking.api.ContinentResponse;
 import com.example.covid19tracking.api.ContinentResult;
 import com.example.covid19tracking.databinding.FragmentHomeBinding;
 
@@ -35,7 +36,6 @@ public class HomeFragment extends Fragment {
     private ProgressBar loadingContinentsData;
     private ContinentDataAdapter continentDataAdapter;
     private final List<ContinentResult> continentDataResults = new ArrayList<>();
-    TextView tvContinentName, tvContinentCases, tvContinentDeath, tvContinentRecovered;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -49,11 +49,6 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        tvContinentName = root.findViewById(R.id.tvContinentName);
-        tvContinentCases = root.findViewById(R.id.tvContinentCases);
-        tvContinentDeath = root.findViewById(R.id.tvContinentDeath);
-        tvContinentRecovered = root.findViewById(R.id.tvContinentRecovered);
-
         Retrofit retrofit = ApiClient.getClient();
         apiService = retrofit.create(ApiService.class);
         setContinentData(root);
@@ -66,29 +61,29 @@ public class HomeFragment extends Fragment {
         continentDataAdapter = new ContinentDataAdapter(continentDataResults, getContext());
         loadingContinentsData = view.findViewById(R.id.loadingContinentData);
 
+        getData();
         rvContinentsData.setAdapter(continentDataAdapter);
-        getContinentData();
     }
 
-    private void getContinentData(){
-        Call<ContinentResult> call = apiService.getCovid19Global();
-        call.enqueue(new Callback<ContinentResult>(){
+    private void getData(){
+        Call<ContinentResponse> call = apiService.getContinentsData("false", "false", "cases" ,"false");
+        call.enqueue(new Callback<ContinentResponse>(){
 
             @Override
-            public void onResponse(@NonNull Call<ContinentResult> call, @NonNull Response<ContinentResult> response) {
+            public void onResponse(@NonNull Call<ContinentResponse> call, @NonNull Response<ContinentResponse> response) {
                 if(response.body() != null){
-                    loadingContinentsData.setVisibility(View.GONE);
-
-                    tvContinentName.setText(response.body().getCase());
-                    tvContinentCases.setText(response.body().getTodayCase());
-                    tvContinentDeath.setText(response.body().getDeaths());
-                    tvContinentRecovered.setText(response.body().getRecovered());
+                    if(response.body().getResults() != null){
+                        loadingContinentsData.setVisibility(View.GONE);
+                        int count = continentDataResults.size();
+                        continentDataResults.addAll(response.body().getResults());
+                        continentDataAdapter.notifyItemChanged(count, continentDataResults.size());
+                    }
                 }
             }
 
+            @SuppressLint("SetTextI18n")
             @Override
-            public void onFailure(@NonNull Call<ContinentResult> call, @NonNull Throwable t) {
-
+            public void onFailure(@NonNull Call<ContinentResponse> call, @NonNull Throwable t) {
             }
         });
     }

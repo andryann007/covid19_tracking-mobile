@@ -12,32 +12,33 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.covid19tracking.R;
 import com.example.covid19tracking.api.ContinentResult;
+import com.example.covid19tracking.api.GlobalResult;
 
 import java.util.List;
 
-public class ContinentDataAdapter extends RecyclerView.Adapter<ContinentDataAdapter.DataViewHolder>{
-    private final List<ContinentResult> continentResults;
+public class CountryDataAdapter extends RecyclerView.Adapter<CountryDataAdapter.DataViewHolder>{
+    private final List<GlobalResult> globalResults;
     private final Context context;
 
-    public ContinentDataAdapter(List<ContinentResult> continentResults, Context context){
-        this.continentResults = continentResults;
+    public CountryDataAdapter(List<GlobalResult> globalResults, Context context){
+        this.globalResults = globalResults;
         this.context = context;
     }
 
     @NonNull
     @Override
-    public ContinentDataAdapter.DataViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType){
+    public CountryDataAdapter.DataViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType){
         return new DataViewHolder(LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_container, parent, false));
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ContinentDataAdapter.DataViewHolder holder, int position) {
-        holder.bindItem(continentResults.get(position), context);
+    public void onBindViewHolder(@NonNull CountryDataAdapter.DataViewHolder holder, int position) {
+        holder.bindItem(globalResults.get(position), context);
     }
 
     @Override
-    public int getItemCount(){ return continentResults.size();}
+    public int getItemCount(){ return globalResults.size();}
 
     static class DataViewHolder extends RecyclerView.ViewHolder{
         private final TextView tableContinentName, tableTotalCase, tableDeath, tableRecover;
@@ -50,11 +51,11 @@ public class ContinentDataAdapter extends RecyclerView.Adapter<ContinentDataAdap
             tableRecover = itemView.findViewById(R.id.tvContinentRecovered);
         }
 
-        void bindItem(ContinentResult continentResult, Context context){
-            tableContinentName.setText(continentResult.getContinent());
-            tableTotalCase.setText(continentResult.getTotalCase());
-            tableDeath.setText(continentResult.getDeaths());
-            tableRecover.setText(continentResult.getRecovered());
+        void bindItem(GlobalResult globalResult, Context context){
+            tableContinentName.setText(globalResult.getCountry());
+            tableTotalCase.setText(globalResult.getTotalCase());
+            tableDeath.setText(globalResult.getDeaths());
+            tableRecover.setText(globalResult.getRecovered());
 
             itemView.setOnClickListener(v -> {
             });

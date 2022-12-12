@@ -46,4 +46,5 @@
     <string name="navigation_drawer_close">Drawer Close</string>
     <string name="search">Search</string>
     <string name="covid_19_continent_data">COVID-19 Continent Data</string>
+    <string name="covid_19_global_data">COVID 19 Global Data</string>
 </resources>

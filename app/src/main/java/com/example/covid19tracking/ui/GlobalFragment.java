@@ -1,66 +1,97 @@
 package com.example.covid19tracking.ui;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.covid19tracking.R;
+import com.example.covid19tracking.adapter.CountryDataAdapter;
+import com.example.covid19tracking.api.ApiClient;
+import com.example.covid19tracking.api.ApiService;
+import com.example.covid19tracking.api.GlobalResponse;
+import com.example.covid19tracking.api.GlobalResult;
+import com.example.covid19tracking.databinding.FragmentGlobalBinding;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link GlobalFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+
 public class GlobalFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private ApiService apiService;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private FragmentGlobalBinding binding;
+
+    private RecyclerView rvGlobalData;
+    private ProgressBar loadingGlobalData;
+    private CountryDataAdapter countryDataAdapter;
+    private final List<GlobalResult> globalDataResults = new ArrayList<>();
 
     public GlobalFragment() {
         // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment GlobalFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static GlobalFragment newInstance(String param1, String param2) {
-        GlobalFragment fragment = new GlobalFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_global, container, false);
+        super.onCreate(savedInstanceState);
+        binding = FragmentGlobalBinding.inflate(inflater, container, false);
+        View root = binding.getRoot();
+
+        Retrofit retrofit = ApiClient.getClient();
+        apiService = retrofit.create(ApiService.class);
+        setGlobalData(root);
+
+        return root;
+    }
+
+    private void setGlobalData(View view) {
+        rvGlobalData = view.findViewById(R.id.rvContinentData);
+        countryDataAdapter = new CountryDataAdapter(globalDataResults, getContext());
+        loadingGlobalData = view.findViewById(R.id.loadingContinentData);
+
+        getData();
+        rvGlobalData.setAdapter(countryDataAdapter);
+    }
+
+    private void getData(){
+        Call<GlobalResponse> call = apiService.getCountriesData("false", "false", "cases" ,"false");
+        call.enqueue(new Callback<GlobalResponse>(){
+
+            @Override
+            public void onResponse(@NonNull Call<GlobalResponse> call, @NonNull Response<GlobalResponse> response) {
+                if(response.body() != null){
+                    if(response.body().getResults() != null){
+                        loadingGlobalData.setVisibility(View.GONE);
+                        int count = globalDataResults.size();
+                        globalDataResults.addAll(response.body().getResults());
+                        countryDataAdapter.notifyItemChanged(count, globalDataResults.size());
+                    }
+                }
+            }
+
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onFailure(@NonNull Call<GlobalResponse> call, @NonNull Throwable t) {
+            }
+        });
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 }
