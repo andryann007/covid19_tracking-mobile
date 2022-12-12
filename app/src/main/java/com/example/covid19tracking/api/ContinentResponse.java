@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ContinentResponse {
-    @SerializedName("results")
     private final List<ContinentResult> results = new ArrayList<>();
 
     public List<ContinentResult> getResults() {

@@ -58,9 +58,9 @@ public class GlobalFragment extends Fragment {
     }
 
     private void setGlobalData(View view) {
-        rvGlobalData = view.findViewById(R.id.rvContinentData);
+        rvGlobalData = view.findViewById(R.id.rvCountryData);
         countryDataAdapter = new CountryDataAdapter(globalDataResults, getContext());
-        loadingGlobalData = view.findViewById(R.id.loadingContinentData);
+        loadingGlobalData = view.findViewById(R.id.loadingCountryData);
 
         getData();
         rvGlobalData.setAdapter(countryDataAdapter);
