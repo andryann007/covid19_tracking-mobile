@@ -15,13 +15,13 @@ import com.example.covid19tracking.R;
 import com.example.covid19tracking.activities.ContinentDetailActivity;
 import com.example.covid19tracking.api.ContinentResult;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class ContinentDataAdapter extends RecyclerView.Adapter<ContinentDataAdapter.DataViewHolder>{
-    private final List<ContinentResult> continentResults;
+    private final ArrayList<ContinentResult> continentResults;
     private final Context context;
 
-    public ContinentDataAdapter(List<ContinentResult> continentResults, Context context){
+    public ContinentDataAdapter(ArrayList<ContinentResult> continentResults, Context context){
         this.continentResults = continentResults;
         this.context = context;
     }
@@ -42,26 +42,26 @@ public class ContinentDataAdapter extends RecyclerView.Adapter<ContinentDataAdap
     public int getItemCount(){ return continentResults.size();}
 
     static class DataViewHolder extends RecyclerView.ViewHolder{
-        private final TextView tableContinentName, tableTotalCase, tableDeath, tableRecover;
+        private final TextView tvContinentName, tvTotalCase, tvDeath, tvRecover;
 
         DataViewHolder(@NonNull View itemView){
             super(itemView);
-            tableContinentName = itemView.findViewById(R.id.tvContinentName);
-            tableTotalCase = itemView.findViewById(R.id.tvContinentCases);
-            tableDeath = itemView.findViewById(R.id.tvContinentDeath);
-            tableRecover = itemView.findViewById(R.id.tvContinentRecovered);
+            tvContinentName = itemView.findViewById(R.id.tvContinentName);
+            tvTotalCase = itemView.findViewById(R.id.tvContinentCases);
+            tvDeath = itemView.findViewById(R.id.tvContinentDeath);
+            tvRecover = itemView.findViewById(R.id.tvContinentRecovered);
         }
 
-        void bindItem(ContinentResult continentResult, Context context){
-            setHtmlText(tableContinentName, continentResult.getContinent());
-            setHtmlText(tableTotalCase, String.valueOf(continentResult.getContinentCases()));
-            setHtmlText(tableDeath, String.valueOf(continentResult.getDeaths()));
-            setHtmlText(tableRecover, String.valueOf(continentResult.getRecovered()));
+        void bindItem(ContinentResult continent, Context context){
+            setHtmlText(tvContinentName, continent.getContinent());
+            setHtmlText(tvTotalCase, String.valueOf(continent.getContinentCases()));
+            setHtmlText(tvDeath, String.valueOf(continent.getDeaths()));
+            setHtmlText(tvRecover, String.valueOf(continent.getRecovered()));
 
             itemView.setOnClickListener(v -> {
                 Intent continentDetail = new Intent(context, ContinentDetailActivity.class);
                 continentDetail.putExtra("tipe", "continent");
-                continentDetail.putExtra("continent_name", continentResult.getContinent());
+                continentDetail.putExtra("continent_name", continent.getContinent());
                 context.startActivity(continentDetail);
             });
         }

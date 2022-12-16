@@ -6,9 +6,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ContinentResponse {
-    private final List<ContinentResult> continent = new ArrayList<>();
+    private ContinentResult[] continent;
 
-    public List<ContinentResult> getResults() {
+    public ContinentResult[] getContinent() {
         return continent;
+    }
+
+    public void setContinent(ContinentResult[] continent) {
+        this.continent = continent;
     }
 }

@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.text.HtmlCompat;
@@ -18,12 +19,11 @@ import com.example.covid19tracking.adapter.CountryDataAdapter;
 import com.example.covid19tracking.api.ApiClient;
 import com.example.covid19tracking.api.ApiService;
 import com.example.covid19tracking.api.GeneralResult;
-import com.example.covid19tracking.api.GlobalResponse;
 import com.example.covid19tracking.api.GlobalResult;
 import com.example.covid19tracking.databinding.FragmentGlobalBinding;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -38,7 +38,7 @@ public class GlobalFragment extends Fragment {
 
     private ProgressBar loadingGlobalData;
     private CountryDataAdapter countryDataAdapter;
-    private final List<GlobalResult> globalDataResults = new ArrayList<>();
+    private ArrayList<GlobalResult> globalDataResults;
     TextView tvActiveCase, tvTotalCase, tvDeath, tvRecovered;
 
     private final String yesterday = "false";
@@ -60,53 +60,48 @@ public class GlobalFragment extends Fragment {
 
         Retrofit retrofit = ApiClient.getClient();
         apiService = retrofit.create(ApiService.class);
-        setGlobalData(root);
-        setCountryData(root);
+        globalDataResults = new ArrayList<>();
+
+        getTotalData(root);
+        getCountriesData(root);
 
         return root;
     }
 
-    private void setCountryData(View view) {
+    private void getCountriesData(View view){
         RecyclerView rvGlobalData = view.findViewById(R.id.rvCountryData);
-        countryDataAdapter = new CountryDataAdapter(globalDataResults, getContext());
         loadingGlobalData = view.findViewById(R.id.loadingCountryData);
 
-        getData();
-        rvGlobalData.setAdapter(countryDataAdapter);
-    }
-
-    private void getData(){
-        Call<GlobalResponse> call = apiService.getCountriesData(yesterday, twoDaysAgo, sort ,allowNull);
-        call.enqueue(new Callback<GlobalResponse>(){
+        Call<ArrayList<GlobalResult>> call = apiService.getCountriesData(yesterday, twoDaysAgo, sort ,allowNull);
+        call.enqueue(new Callback<ArrayList<GlobalResult>>(){
 
             @Override
-            public void onResponse(@NonNull Call<GlobalResponse> call, @NonNull Response<GlobalResponse> response) {
-                if(response.body() != null){
-                    if(response.body().getResults() != null){
-                        loadingGlobalData.setVisibility(View.GONE);
-                        globalDataResults.addAll(response.body().getResults());
-                        int count = globalDataResults.size();
-                        countryDataAdapter.notifyItemChanged(count, globalDataResults.size());
+            public void onResponse(@NonNull Call<ArrayList<GlobalResult>> call, @NonNull Response<ArrayList<GlobalResult>> response) {
+                if(response.isSuccessful()){
+                    loadingGlobalData.setVisibility(View.GONE);
+                    globalDataResults = response.body();
+
+                    for(int i = 0; i < Objects.requireNonNull(globalDataResults).size(); i++){
+                        countryDataAdapter = new CountryDataAdapter(globalDataResults, getContext());
+                        rvGlobalData.setAdapter(countryDataAdapter);
                     }
                 }
             }
 
             @SuppressLint("SetTextI18n")
             @Override
-            public void onFailure(@NonNull Call<GlobalResponse> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<ArrayList<GlobalResult>> call, @NonNull Throwable t) {
+                Toast.makeText(getContext(), "Fail to Fetch https://disease.sh/v3/covid-19/countries data",
+                        Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    private void setGlobalData(View view) {
+    private void getTotalData(View view){
         tvActiveCase = view.findViewById(R.id.textValueActiveCase);
         tvTotalCase = view.findViewById(R.id.textValueTotalCase);
         tvDeath = view.findViewById(R.id.textValueDeath);
         tvRecovered = view.findViewById(R.id.textValueRecovered);
-        getGeneralData();
-    }
-
-    private void getGeneralData(){
 
         Call<GeneralResult> call = apiService.getGeneralData(yesterday, twoDaysAgo, allowNull);
         call.enqueue(new Callback<GeneralResult>(){

@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.text.HtmlCompat;
@@ -17,13 +18,12 @@ import com.example.covid19tracking.R;
 import com.example.covid19tracking.adapter.ContinentDataAdapter;
 import com.example.covid19tracking.api.ApiClient;
 import com.example.covid19tracking.api.ApiService;
-import com.example.covid19tracking.api.ContinentResponse;
 import com.example.covid19tracking.api.ContinentResult;
 import com.example.covid19tracking.api.GeneralResult;
 import com.example.covid19tracking.databinding.FragmentHomeBinding;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -37,7 +37,7 @@ public class HomeFragment extends Fragment {
 
     private ProgressBar loadingContinentsData;
     private ContinentDataAdapter continentDataAdapter;
-    private final List<ContinentResult> continentDataResults = new ArrayList<>();
+    private ArrayList<ContinentResult> continentDataResults;
 
     TextView tvActiveCase, tvTotalCase, tvDeath, tvRecovered;
 
@@ -60,53 +60,46 @@ public class HomeFragment extends Fragment {
 
         Retrofit retrofit = ApiClient.getClient();
         apiService = retrofit.create(ApiService.class);
-        setGlobalData(root);
-        setContinentData(root);
+        continentDataResults = new ArrayList<>();
+        getTotalData(root);
+        getContinentsData(root);
 
         return root;
     }
 
-    private void setContinentData(View view) {
+    private void getContinentsData(View view){
         RecyclerView rvContinentsData = view.findViewById(R.id.rvContinentData);
-        continentDataAdapter = new ContinentDataAdapter(continentDataResults, getContext());
         loadingContinentsData = view.findViewById(R.id.loadingContinentData);
 
-        getData();
-        rvContinentsData.setAdapter(continentDataAdapter);
-    }
-
-    private void getData(){
-        Call<ContinentResponse> call = apiService.getContinentsData(yesterday, twoDaysAgo, sort, allowNull);
-        call.enqueue(new Callback<ContinentResponse>(){
+        Call<ArrayList<ContinentResult>> call = apiService.getContinentsData(yesterday, twoDaysAgo, sort, allowNull);
+        call.enqueue(new Callback<ArrayList<ContinentResult>>(){
 
             @Override
-            public void onResponse(@NonNull Call<ContinentResponse> call, @NonNull Response<ContinentResponse> response) {
-                if(response.body() != null){
-                    if(response.body().getResults() != null){
-                        loadingContinentsData.setVisibility(View.GONE);
-                        continentDataResults.addAll(response.body().getResults());
-                        int count = continentDataResults.size();
-                        continentDataAdapter.notifyItemChanged(count, continentDataResults.size());
+            public void onResponse(@NonNull Call<ArrayList<ContinentResult>> call,
+                                   @NonNull Response<ArrayList<ContinentResult>> response) {
+                if(response.isSuccessful()){
+                    loadingContinentsData.setVisibility(View.GONE);
+                    continentDataResults = response.body();
+
+                    for(int i = 0; i < Objects.requireNonNull(continentDataResults).size(); i++){
+                        continentDataAdapter = new ContinentDataAdapter(continentDataResults, getContext());
+                        rvContinentsData.setAdapter(continentDataAdapter);
                     }
                 }
             }
 
             @SuppressLint("SetTextI18n")
             @Override
-            public void onFailure(@NonNull Call<ContinentResponse> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<ArrayList<ContinentResult>> call, @NonNull Throwable t) {
             }
         });
     }
 
-    private void setGlobalData(View view) {
+    private void getTotalData(View view){
         tvActiveCase = view.findViewById(R.id.textValueActiveCase);
         tvTotalCase = view.findViewById(R.id.textValueTotalCase);
         tvDeath = view.findViewById(R.id.textValueDeath);
         tvRecovered = view.findViewById(R.id.textValueRecovered);
-        getGeneralData();
-    }
-
-    private void getGeneralData(){
 
         Call<GeneralResult> call = apiService.getGeneralData(yesterday, twoDaysAgo, allowNull);
         call.enqueue(new Callback<GeneralResult>(){
@@ -123,6 +116,8 @@ public class HomeFragment extends Fragment {
             @SuppressLint("SetTextI18n")
             @Override
             public void onFailure(@NonNull Call<GeneralResult> call, @NonNull Throwable t) {
+                Toast.makeText(getContext(), "Fail to Fetch https://disease.sh/v3/covid-19/continents data",
+                        Toast.LENGTH_SHORT).show();
             }
         });
     }

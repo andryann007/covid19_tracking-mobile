@@ -15,13 +15,14 @@ import com.example.covid19tracking.R;
 import com.example.covid19tracking.activities.CountryDetailActivity;
 import com.example.covid19tracking.api.GlobalResult;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CountryDataAdapter extends RecyclerView.Adapter<CountryDataAdapter.DataViewHolder>{
-    private final List<GlobalResult> globalResults;
+    private final ArrayList<GlobalResult> globalResults;
     private final Context context;
 
-    public CountryDataAdapter(List<GlobalResult> globalResults, Context context){
+    public CountryDataAdapter(ArrayList<GlobalResult> globalResults, Context context){
         this.globalResults = globalResults;
         this.context = context;
     }
