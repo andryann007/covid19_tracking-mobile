@@ -8,10 +8,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.text.HtmlCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.covid19tracking.R;
-import com.example.covid19tracking.api.ContinentResult;
+import com.example.covid19tracking.activities.CountryDetailActivity;
 import com.example.covid19tracking.api.GlobalResult;
 
 import java.util.List;
@@ -52,13 +53,20 @@ public class CountryDataAdapter extends RecyclerView.Adapter<CountryDataAdapter.
         }
 
         void bindItem(GlobalResult globalResult, Context context){
-            tableContinentName.setText(globalResult.getCountry());
-            tableTotalCase.setText(globalResult.getTotalCase());
-            tableDeath.setText(globalResult.getDeaths());
-            tableRecover.setText(globalResult.getRecovered());
+            setHtmlText(tableContinentName, globalResult.getCountry());
+            setHtmlText(tableTotalCase, String.valueOf(globalResult.getGlobalCases()));
+            setHtmlText(tableDeath, String.valueOf(globalResult.getDeaths()));
+            setHtmlText(tableRecover, String.valueOf(globalResult.getRecovered()));
 
             itemView.setOnClickListener(v -> {
+                Intent countryDetail = new Intent(context, CountryDetailActivity.class);
+                countryDetail.putExtra("tipe", "country");
+                countryDetail.putExtra("country_name", globalResult.getCountry());
+                context.startActivity(countryDetail);
             });
         }
+    }
+    private static void setHtmlText(TextView tv, String textValue){
+        tv.setText(HtmlCompat.fromHtml("<b>" + textValue + "</b>", HtmlCompat.FROM_HTML_MODE_LEGACY));
     }
 }

@@ -6,26 +6,26 @@ public class ContinentResult {
     @SerializedName("continent")
     String continent;
 
-    public String getContinent() {
-        return continent;
-    }
-
     @SerializedName("cases")
-    int totalCase;
-
-    public int getTotalCase() {
-        return totalCase;
-    }
+    int cases;
 
     @SerializedName("deaths")
     int deaths;
 
+    @SerializedName("recovered")
+    int recovered;
+
+    public String getContinent() {
+        return continent;
+    }
+
+    public int getContinentCases() {
+        return cases;
+    }
+
     public int getDeaths() {
         return deaths;
     }
-
-    @SerializedName("recovered")
-    int recovered;
 
     public int getRecovered() {
         return recovered;

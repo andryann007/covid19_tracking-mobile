@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ContinentResponse {
-    private final List<ContinentResult> results = new ArrayList<>();
+    private final List<ContinentResult> continent = new ArrayList<>();
 
     public List<ContinentResult> getResults() {
-        return results;
+        return continent;
     }
 }

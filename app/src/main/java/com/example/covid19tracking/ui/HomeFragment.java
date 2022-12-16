@@ -6,8 +6,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.text.HtmlCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,6 +19,7 @@ import com.example.covid19tracking.api.ApiClient;
 import com.example.covid19tracking.api.ApiService;
 import com.example.covid19tracking.api.ContinentResponse;
 import com.example.covid19tracking.api.ContinentResult;
+import com.example.covid19tracking.api.GeneralResult;
 import com.example.covid19tracking.databinding.FragmentHomeBinding;
 
 import java.util.ArrayList;
@@ -32,10 +35,16 @@ public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
 
-    private RecyclerView rvContinentsData;
     private ProgressBar loadingContinentsData;
     private ContinentDataAdapter continentDataAdapter;
     private final List<ContinentResult> continentDataResults = new ArrayList<>();
+
+    TextView tvActiveCase, tvTotalCase, tvDeath, tvRecovered;
+
+    private final String yesterday = "false";
+    private final String twoDaysAgo = "false";
+    private final String sort = "cases";
+    private final String allowNull = "false";
 
     public HomeFragment() {
         // Required empty public constructor
@@ -51,13 +60,14 @@ public class HomeFragment extends Fragment {
 
         Retrofit retrofit = ApiClient.getClient();
         apiService = retrofit.create(ApiService.class);
+        setGlobalData(root);
         setContinentData(root);
 
         return root;
     }
 
     private void setContinentData(View view) {
-        rvContinentsData = view.findViewById(R.id.rvContinentData);
+        RecyclerView rvContinentsData = view.findViewById(R.id.rvContinentData);
         continentDataAdapter = new ContinentDataAdapter(continentDataResults, getContext());
         loadingContinentsData = view.findViewById(R.id.loadingContinentData);
 
@@ -66,7 +76,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void getData(){
-        Call<ContinentResponse> call = apiService.getContinentsData("false", "false", "cases" ,"false");
+        Call<ContinentResponse> call = apiService.getContinentsData(yesterday, twoDaysAgo, sort, allowNull);
         call.enqueue(new Callback<ContinentResponse>(){
 
             @Override
@@ -74,8 +84,8 @@ public class HomeFragment extends Fragment {
                 if(response.body() != null){
                     if(response.body().getResults() != null){
                         loadingContinentsData.setVisibility(View.GONE);
-                        int count = continentDataResults.size();
                         continentDataResults.addAll(response.body().getResults());
+                        int count = continentDataResults.size();
                         continentDataAdapter.notifyItemChanged(count, continentDataResults.size());
                     }
                 }
@@ -87,6 +97,40 @@ public class HomeFragment extends Fragment {
             }
         });
     }
+
+    private void setGlobalData(View view) {
+        tvActiveCase = view.findViewById(R.id.textValueActiveCase);
+        tvTotalCase = view.findViewById(R.id.textValueTotalCase);
+        tvDeath = view.findViewById(R.id.textValueDeath);
+        tvRecovered = view.findViewById(R.id.textValueRecovered);
+        getGeneralData();
+    }
+
+    private void getGeneralData(){
+
+        Call<GeneralResult> call = apiService.getGeneralData(yesterday, twoDaysAgo, allowNull);
+        call.enqueue(new Callback<GeneralResult>(){
+            @Override
+            public void onResponse(@NonNull Call<GeneralResult> call, @NonNull Response<GeneralResult> response) {
+                if(response.body() != null){
+                    setHtmlText(tvActiveCase, String.valueOf(response.body().getActive()));
+                    setHtmlText(tvTotalCase, String.valueOf(response.body().getGeneralCases()));
+                    setHtmlText(tvDeath, String.valueOf(response.body().getDeaths()));
+                    setHtmlText(tvRecovered, String.valueOf(response.body().getRecovered()));
+                }
+            }
+
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onFailure(@NonNull Call<GeneralResult> call, @NonNull Throwable t) {
+            }
+        });
+    }
+
+    private void setHtmlText(TextView tv, String textValue){
+        tv.setText(HtmlCompat.fromHtml("<b>" + textValue + " Cases</b>", HtmlCompat.FROM_HTML_MODE_LEGACY));
+    }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();

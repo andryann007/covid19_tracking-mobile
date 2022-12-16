@@ -21,8 +21,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
@@ -46,7 +44,9 @@ public class RegisterActivity extends AppCompatActivity {
     //progress dialog
     private ProgressDialog progressDialog;
 
-    private String username="", email="", password="", password_confirmation="";
+    private String username="";
+    private String email="";
+    private String password="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +85,7 @@ public class RegisterActivity extends AppCompatActivity {
         username = Objects.requireNonNull(binding.nameEt.getText()).toString().trim();
         email = Objects.requireNonNull(binding.emailEt.getText()).toString().trim();
         password = Objects.requireNonNull(binding.passwordEt.getText()).toString().trim();
-        password_confirmation = Objects.requireNonNull(binding.cPasswordEt.getText()).toString().trim();
+        String password_confirmation = Objects.requireNonNull(binding.cPasswordEt.getText()).toString().trim();
 
         if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
             binding.emailEt.setError("Invalid email format !!!");
@@ -148,26 +148,21 @@ public class RegisterActivity extends AppCompatActivity {
 
         //set data to db
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
+        assert uid != null;
         ref.child(uid)
                 .setValue(mHashmap)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
-                        //data added to db
-                        progressDialog.dismiss();
-                        Toast.makeText(RegisterActivity.this, "Account created...", Toast.LENGTH_SHORT).show();
-                        //since user account is created so start dashboard of user
-                        startActivity(new Intent(RegisterActivity.this, MainActivity.class));
-                        finish();
-                    }
+                .addOnSuccessListener(unused -> {
+                    //data added to db
+                    progressDialog.dismiss();
+                    Toast.makeText(RegisterActivity.this, "Account created...", Toast.LENGTH_SHORT).show();
+                    //since user account is created so start dashboard of user
+                    startActivity(new Intent(RegisterActivity.this, MainActivity.class));
+                    finish();
                 })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(Exception e) {
-                        //data failed adding to db
-                        progressDialog.dismiss();
-                        Toast.makeText(RegisterActivity.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
+                .addOnFailureListener(e -> {
+                    //data failed adding to db
+                    progressDialog.dismiss();
+                    Toast.makeText(RegisterActivity.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
                 });
     }
 

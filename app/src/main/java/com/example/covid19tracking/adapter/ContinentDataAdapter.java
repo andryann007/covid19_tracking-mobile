@@ -8,9 +8,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.text.HtmlCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.covid19tracking.R;
+import com.example.covid19tracking.activities.ContinentDetailActivity;
 import com.example.covid19tracking.api.ContinentResult;
 
 import java.util.List;
@@ -51,13 +53,20 @@ public class ContinentDataAdapter extends RecyclerView.Adapter<ContinentDataAdap
         }
 
         void bindItem(ContinentResult continentResult, Context context){
-            tableContinentName.setText(continentResult.getContinent());
-            tableTotalCase.setText(continentResult.getTotalCase());
-            tableDeath.setText(continentResult.getDeaths());
-            tableRecover.setText(continentResult.getRecovered());
+            setHtmlText(tableContinentName, continentResult.getContinent());
+            setHtmlText(tableTotalCase, String.valueOf(continentResult.getContinentCases()));
+            setHtmlText(tableDeath, String.valueOf(continentResult.getDeaths()));
+            setHtmlText(tableRecover, String.valueOf(continentResult.getRecovered()));
 
             itemView.setOnClickListener(v -> {
+                Intent continentDetail = new Intent(context, ContinentDetailActivity.class);
+                continentDetail.putExtra("tipe", "continent");
+                continentDetail.putExtra("continent_name", continentResult.getContinent());
+                context.startActivity(continentDetail);
             });
         }
+    }
+    private static void setHtmlText(TextView tv, String textValue){
+        tv.setText(HtmlCompat.fromHtml("<b>" + textValue + "</b>", HtmlCompat.FROM_HTML_MODE_LEGACY));
     }
 }

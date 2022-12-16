@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/background_dark"
+    tools:context=".activities.ContinentDetailActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:layout_alignParentTop="true"
+        android:background="@color/black"
+        app:logo="@drawable/ic_back"
+        app:title="@string/app_name"
+        app:titleMarginStart="32dp"
+        app:titleTextColor="@color/white">
+    </androidx.appcompat.widget.Toolbar>
+
+    <ProgressBar
+        android:id="@+id/loadingDetails"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_centerVertical="true"
+        android:visibility="gone"/>
+
+    <ImageView
+        android:id="@+id/imageCountryFlag"
+        android:layout_width="240dp"
+        android:layout_height="180dp"
+        android:layout_below="@+id/toolbar"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/ic_launcher_foreground"
+        android:contentDescription="@string/country_flag" />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="15dp"
+        android:layout_below="@+id/imageCountryFlag">
+
+        <LinearLayout android:id="@+id/contentLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textCountryName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="10dp"
+                android:text="@string/tv_country_name"
+                android:fontFamily="sans-serif"
+                android:textAlignment="center"
+                android:textColor="@android:color/background_light"
+                android:textSize="20sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/textCountryTotalCase"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="5dp"
+                android:text="@string/tv_country_totalcase"
+                android:fontFamily="sans-serif"
+                android:textColor="@android:color/background_light"
+                android:textSize="18sp"/>
+
+            <TextView
+                android:id="@+id/textCountryActiveCase"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="5dp"
+                android:text="@string/tv_country_activecase"
+                android:fontFamily="sans-serif"
+                android:textColor="@android:color/background_light"
+                android:textSize="18sp"/>
+
+            <TextView
+                android:id="@+id/textCountryDeath"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="5dp"
+                android:text="@string/tv_country_deathcase"
+                android:fontFamily="sans-serif"
+                android:textColor="@android:color/background_light"
+                android:textSize="18sp"/>
+
+            <TextView
+                android:id="@+id/textCountryRecovered"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="10dp"
+                android:text="@string/tv_country_recoveredcase"
+                android:fontFamily="sans-serif"
+                android:textColor="@android:color/background_light"
+                android:textSize="18sp"/>
+
+            <View
+                android:id="@+id/horizontalDivider"
+                android:layout_width="match_parent"
+                android:layout_marginHorizontal="-15dp"
+                android:layout_height="1.5dp"
+                android:background="@android:color/background_light" />
+
+            <TextView
+                android:id="@+id/textCountryList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="10dp"
+                android:text="@string/other_country_case"
+                android:fontFamily="sans-serif"
+                android:textAlignment="center"
+                android:textColor="@android:color/background_light"
+                android:textSize="20sp"
+                android:textStyle="bold"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvCountryList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="5dp"
+                android:orientation="vertical"
+                android:scrollbars="vertical"
+                android:overScrollMode="never"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/flag_container"/>
+
+        </LinearLayout>
+
+
+    </androidx.core.widget.NestedScrollView>
+</RelativeLayout>

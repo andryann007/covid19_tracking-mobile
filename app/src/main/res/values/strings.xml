@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Covid19Tracking</string>
+    <string name="app_name">COVID-19 Tracking</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
@@ -47,4 +47,29 @@
     <string name="search">Search</string>
     <string name="covid_19_continent_data">COVID-19 Continent Data</string>
     <string name="covid_19_global_data">COVID-19 Global Data</string>
+    <string name="logo_of_covid19">Logo of COVID19</string>
+    <string name="value">Value</string>
+    <string name="title">Title</string>
+    <string name="total_active_case">Total Active Case</string>
+    <string name="total_cases">Total Cases</string>
+    <string name="total_death">Total Death</string>
+    <string name="total_recovered">Total Recovered</string>
+    <string name="sort">Sort</string>
+    <string name="tv_continent_name">Continent Name</string>
+    <string name="tv_continent_totalcase">Continent Total Case</string>
+    <string name="tv_continent_activecase">Continent Active Case</string>
+    <string name="tv_continent_deathcase">Continent Death Case</string>
+    <string name="tv_continent_recoveredcase">Continent Recovered Case</string>
+    <string name="continent_country_list">Continent Country List</string>
+    <string name="country_name">Country Name</string>
+    <string name="country_continent">Country Continent</string>
+    <string name="country_total_case">Country Total Case</string>
+    <string name="country_flags">Country Flags</string>
+    <string name="country_flag">Country Flag</string>
+    <string name="tv_country_name">Country Name</string>
+    <string name="tv_country_totalcase">Country Total Case</string>
+    <string name="tv_country_activecase">Country Active Case</string>
+    <string name="tv_country_deathcase">Country Death</string>
+    <string name="other_country_case">Other Country Case</string>
+    <string name="tv_country_recoveredcase">Country Recovered</string>
 </resources>
