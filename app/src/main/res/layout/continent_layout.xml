@@ -18,6 +18,43 @@
         android:textColor="@android:color/background_light"
         android:textSize="24sp"/>
 
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/searchContinent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:defaultQueryHint="Search Continent Data"
+        app:searchIcon="@drawable/ic_search"/>
+
+    <LinearLayout
+        android:id="@+id/sortContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginHorizontal="15dp"
+        android:orientation="horizontal"
+        android:weightSum="3">
+
+        <TextView
+            android:id="@+id/textSort"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:layout_marginTop="12dp"
+            android:text="@string/sort_by"
+            android:fontFamily="sans-serif"
+            android:textColor="@android:color/background_light"
+            android:textSize="20sp"
+            android:textStyle="bold"/>
+
+        <Spinner
+            android:id="@+id/spinnerSort"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@android:drawable/btn_dropdown"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvContinentData"
         android:layout_width="match_parent"

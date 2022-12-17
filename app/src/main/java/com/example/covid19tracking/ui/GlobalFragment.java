@@ -5,7 +5,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -36,10 +39,12 @@ public class GlobalFragment extends Fragment {
     private ProgressBar loadingGlobalData;
     private CountryDataAdapter countryDataAdapter;
     private ArrayList<CountryResult> globalDataResults;
+    private Spinner spinner;
 
     private final String yesterday = "false";
     private final String twoDaysAgo = "false";
     private final String allowNull = "false";
+    String[] sortText = {"Cases", "Recovered", "Deaths"};
     String sortBy;
 
     public GlobalFragment() {
@@ -58,9 +63,37 @@ public class GlobalFragment extends Fragment {
         apiService = retrofit.create(ApiService.class);
         globalDataResults = new ArrayList<>();
 
+        getSpinnerData(root);
         getCountriesData(root);
 
         return root;
+    }
+
+    private void getSpinnerData(View view){
+        spinner = view.findViewById(R.id.spinnerSort);
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item,
+                sortText);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(position == 0){
+                    sortCountriesByCase(view);
+                } else if (position == 1){
+                    sortCountriesByRecovered(view);
+                } else {
+                    sortCountriesByDeath(view);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
     private void getCountriesData(View view){
@@ -88,6 +121,99 @@ public class GlobalFragment extends Fragment {
             public void onFailure(@NonNull Call<ArrayList<CountryResult>> call, @NonNull Throwable t) {
                 Toast.makeText(getContext(), "Fail to Fetch https://disease.sh/v3/covid-19/countries data",
                         Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void sortCountriesByCase(View view){
+        sortBy = "cases";
+        RecyclerView rvGlobalData = view.findViewById(R.id.rvCountryData);
+        loadingGlobalData = view.findViewById(R.id.loadingCountryData);
+
+        Call<ArrayList<CountryResult>> call = apiService.sortCountries(yesterday, twoDaysAgo, sortBy, allowNull);
+        call.enqueue(new Callback<ArrayList<CountryResult>>(){
+
+            @Override
+            public void onResponse(@NonNull Call<ArrayList<CountryResult>> call, @NonNull Response<ArrayList<CountryResult>> response) {
+                if(response.isSuccessful()){
+                    loadingGlobalData.setVisibility(View.GONE);
+                    globalDataResults = response.body();
+
+                    for(int i = 0; i < Objects.requireNonNull(globalDataResults).size(); i++){
+                        countryDataAdapter = new CountryDataAdapter(globalDataResults, getContext());
+                        rvGlobalData.setAdapter(countryDataAdapter);
+                    }
+                    Toast.makeText(getContext(), "Successfully Sorted Data by Total Case !!!",
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onFailure(@NonNull Call<ArrayList<CountryResult>> call, @NonNull Throwable t) {
+                Toast.makeText(getContext(), "Fail to Sorted the Data", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void sortCountriesByRecovered(View view){
+        sortBy = "recovered";
+        RecyclerView rvGlobalData = view.findViewById(R.id.rvCountryData);
+        loadingGlobalData = view.findViewById(R.id.loadingCountryData);
+
+        Call<ArrayList<CountryResult>> call = apiService.sortCountries(yesterday, twoDaysAgo, sortBy, allowNull);
+        call.enqueue(new Callback<ArrayList<CountryResult>>(){
+
+            @Override
+            public void onResponse(@NonNull Call<ArrayList<CountryResult>> call, @NonNull Response<ArrayList<CountryResult>> response) {
+                if(response.isSuccessful()){
+                    loadingGlobalData.setVisibility(View.GONE);
+                    globalDataResults = response.body();
+
+                    for(int i = 0; i < Objects.requireNonNull(globalDataResults).size(); i++){
+                        countryDataAdapter = new CountryDataAdapter(globalDataResults, getContext());
+                        rvGlobalData.setAdapter(countryDataAdapter);
+                    }
+                    Toast.makeText(getContext(), "Successfully Sorted Data by Recovered Case !!!",
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onFailure(@NonNull Call<ArrayList<CountryResult>> call, @NonNull Throwable t) {
+                Toast.makeText(getContext(), "Fail to Sorted the Data", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void sortCountriesByDeath(View view){
+        sortBy = "deaths";
+        RecyclerView rvGlobalData = view.findViewById(R.id.rvCountryData);
+        loadingGlobalData = view.findViewById(R.id.loadingCountryData);
+
+        Call<ArrayList<CountryResult>> call = apiService.sortCountries(yesterday, twoDaysAgo, sortBy, allowNull);
+        call.enqueue(new Callback<ArrayList<CountryResult>>(){
+
+            @Override
+            public void onResponse(@NonNull Call<ArrayList<CountryResult>> call, @NonNull Response<ArrayList<CountryResult>> response) {
+                if(response.isSuccessful()){
+                    loadingGlobalData.setVisibility(View.GONE);
+                    globalDataResults = response.body();
+
+                    for(int i = 0; i < Objects.requireNonNull(globalDataResults).size(); i++){
+                        countryDataAdapter = new CountryDataAdapter(globalDataResults, getContext());
+                        rvGlobalData.setAdapter(countryDataAdapter);
+                    }
+                    Toast.makeText(getContext(), "Successfully Sorted Data by Death Case !!!",
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onFailure(@NonNull Call<ArrayList<CountryResult>> call, @NonNull Throwable t) {
+                Toast.makeText(getContext(), "Fail to Sorted the Data", Toast.LENGTH_SHORT).show();
             }
         });
     }

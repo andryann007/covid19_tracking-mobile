@@ -29,4 +29,23 @@ public interface ApiService {
     Call<CountryResult> getCountriesDetail(@Path("country") String country, @Query("yesterday")
             String yesterday, @Query("twoDaysAgo") String twoDaysAgo, @Query("strict")
             String strict, @Query("allowNull") String allowNull);
+
+    @GET("/v3/covid-19/continents")
+    Call<ArrayList<ContinentResult>> sortContinent(@Query("yesterday") String yesterday, @Query("twoDaysAgo")
+            String twoDaysAgo, @Query("sort") String sort, @Query("allowNull") String allowNull);
+
+    @GET("/v3/covid-19/countries")
+    Call<ArrayList<CountryResult>> sortCountries(@Query("yesterday") String yesterday, @Query("twoDaysAgo")
+            String twoDaysAgo, @Query("sort") String sort, @Query("allowNull") String allowNull);
+
+    @GET("/v3/covid-19/continents/{continent}")
+    Call<ContinentResult> searchContinents(@Path("continent") String continent, @Query("yesterday")
+            String yesterday, @Query("twoDaysAgo") String twoDaysAgo, @Query("strict")
+                                                      String strict, @Query("allowNull") String allowNull);
+
+    @GET("/v3/covid-19/countries/{country}")
+    Call<CountryResult> searchCountries(@Path("country") String country, @Query("yesterday")
+            String yesterday, @Query("twoDaysAgo") String twoDaysAgo, @Query("strict")
+                                                   String strict, @Query("allowNull") String allowNull);
+
 }

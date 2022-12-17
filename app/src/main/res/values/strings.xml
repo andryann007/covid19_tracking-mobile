@@ -60,7 +60,7 @@
     <string name="tv_continent_activecase">Active Case :</string>
     <string name="tv_continent_deathcase">Death Case :</string>
     <string name="tv_continent_recoveredcase">Recovered  :</string>
-    <string name="continent_country_list">Continent Country List</string>
+    <string name="continent_country_list">Country List :</string>
     <string name="country_name">Country Name</string>
     <string name="country_continent">Country Continent</string>
     <string name="country_total_case">Country Total Case</string>
@@ -73,4 +73,13 @@
     <string name="other_country_case">Other Country Case</string>
     <string name="tv_country_recoveredcase">Recovered  :</string>
     <string name="country_flag_images">Country Flag Images</string>
+    <string name="sort_by_cases">Sort by Cases</string>
+    <string name="sort_by_recovered">Sort by Recovered</string>
+    <string name="sort_by_deaths">Sort by Deaths</string>
+    <string name="sort_by">Sort By</string>
+    <string name="last_data_updated">Last Data Updated :</string>
+    <string name="today_case">Today Case :</string>
+    <string name="today_recovered">Today Recovered :</string>
+    <string name="today_death">Today Death :</string>
+    <string name="total_population">Total Population :</string>
 </resources>

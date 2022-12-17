@@ -1,5 +1,6 @@
 package com.example.covid19tracking.activities;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.widget.TextView;
 
@@ -14,7 +15,9 @@ import com.example.covid19tracking.api.ApiService;
 import com.example.covid19tracking.api.ContinentResult;
 import com.example.covid19tracking.databinding.ActivityContinentDetailBinding;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Locale;
 
 import retrofit2.Call;
@@ -65,28 +68,51 @@ public class ContinentDetailActivity extends AppCompatActivity {
             @Override
             public void onResponse(@NonNull Call<ContinentResult> call, @NonNull Response<ContinentResult> response) {
                 if(response.body() != null){
-                    binding.toolbar.setTitle(response.body().getContinent() + " Continent");
+                    binding.toolbar.setTitle(response.body().getContinent() + " Continent Detail");
 
                     setTitleText(binding.textContinentName, response.body().getContinent());
 
+                    int timeStamp = response.body().getUpdated();
+                    Date date = new Date(Long.parseLong(String.valueOf(timeStamp)));
+                    @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yy");
+                    String mDate = dateFormat.format(date);
+                    binding.textContinentUpdatedTime.setText(mDate);
+
+                    int population = response.body().getPopulation();
+                    String mPopulation = String.format(Locale.US, "%,d",population).replace(',','.');
+                    setPopulationText(binding.textContinentPopulation, mPopulation);
+
                     int totalCase = response.body().getContinentCases();
                     String mTotalCase = String.format(Locale.US, "%,d",totalCase).replace(',','.');
-                    setTotalCaseText(binding.textContinentTotalCase, mTotalCase);
+                    setCaseText(binding.textContinentTotalCase, mTotalCase);
 
-                    int activeCase = response.body().getActive();
-                    String mActiveCase = String.format(Locale.US, "%,d",activeCase).replace(',','.');
-                    setActiveCaseText(binding.textContinentActiveCase, mActiveCase);
-
-                    int deathCase = response.body().getDeaths();
-                    String mDeathCase = String.format(Locale.US, "%,d",deathCase).replace(',','.');
-                    setDeathCaseText(binding.textContinentDeath, mDeathCase);
+                    int todayCase = response.body().getTodayCases();
+                    String mTodayCase = String.format(Locale.US, "%,d",todayCase).replace(',','.');
+                    setCaseText(binding.textContinentTodayCase, mTodayCase);
 
                     int recoveredCase = response.body().getRecovered();
                     String mRecoveredCase = String.format(Locale.US, "%,d",recoveredCase).replace(',','.');
-                    setRecoveredCaseText(binding.textContinentRecovered, mRecoveredCase);
+                    setCaseText(binding.textContinentRecovered, mRecoveredCase);
+
+                    int todayRecovered = response.body().getTodayRecovered();
+                    String mTodayRecovered = String.format(Locale.US, "%,d",todayRecovered).replace(',','.');
+                    setCaseText(binding.textContinentTodayRecovered, mTodayRecovered);
+
+                    int deathCase = response.body().getDeaths();
+                    String mDeathCase = String.format(Locale.US, "%,d",deathCase).replace(',','.');
+                    setCaseText(binding.textContinentDeath, mDeathCase);
+
+                    int todayDeaths = response.body().getTodayDeaths();
+                    String mTodayDeaths = String.format(Locale.US, "%,d",todayDeaths).replace(',','.');
+                    setCaseText(binding.textContinentTodayDeath, mTodayDeaths);
+
+                    int activeCase = response.body().getActive();
+                    String mActiveCase = String.format(Locale.US, "%,d",activeCase).replace(',','.');
+                    setCaseText(binding.textContinentActiveCase, mActiveCase);
 
                     String[] countryName = response.body().getCountries();
-                    String mCountryName = Arrays.toString(countryName);
+                    String mCountryName = Arrays.toString(countryName).replace("[", "")
+                            .replace("]", "");
                     setCountryNameText(binding.textCountriesName, mCountryName);
                 }
             }
@@ -98,27 +124,19 @@ public class ContinentDetailActivity extends AppCompatActivity {
         });
     }
 
-    private void setTotalCaseText(TextView tv, String textValue){
-        tv.setText(HtmlCompat.fromHtml("<b>Total Case : " + textValue + " Cases</b>", HtmlCompat.FROM_HTML_MODE_LEGACY));
+    private void setCaseText(TextView tv, String textValue){
+        tv.setText(HtmlCompat.fromHtml("<b>" + textValue + " case</b>", HtmlCompat.FROM_HTML_MODE_LEGACY));
     }
 
-    private void setActiveCaseText(TextView tv, String textValue){
-        tv.setText(HtmlCompat.fromHtml("<b>Active Case : " + textValue + " Cases</b>", HtmlCompat.FROM_HTML_MODE_LEGACY));
-    }
-
-    private void setDeathCaseText(TextView tv, String textValue){
-        tv.setText(HtmlCompat.fromHtml("<b>Death Case : " + textValue + " Cases</b>", HtmlCompat.FROM_HTML_MODE_LEGACY));
-    }
-
-    private void setRecoveredCaseText(TextView tv, String textValue){
-        tv.setText(HtmlCompat.fromHtml("<b>Recovered Case : " + textValue + " Cases</b>", HtmlCompat.FROM_HTML_MODE_LEGACY));
-    }
+   private void setPopulationText(TextView tv, String textValue){
+       tv.setText(HtmlCompat.fromHtml("<b>" + textValue + " people</b>", HtmlCompat.FROM_HTML_MODE_LEGACY));
+   }
 
     private void setTitleText(TextView tv, String textValue){
-        tv.setText(HtmlCompat.fromHtml("<b>" + textValue + " Continent Case</b>", HtmlCompat.FROM_HTML_MODE_LEGACY));
+        tv.setText(HtmlCompat.fromHtml("<b>" + textValue + " Continent </b>COVID-19 Case", HtmlCompat.FROM_HTML_MODE_LEGACY));
     }
 
     private void setCountryNameText(TextView tv, String textValue){
-        tv.setText(HtmlCompat.fromHtml("<b>" + textValue + ", </b>", HtmlCompat.FROM_HTML_MODE_LEGACY));
+        tv.setText(HtmlCompat.fromHtml("<b>" + textValue + "</b>", HtmlCompat.FROM_HTML_MODE_LEGACY));
     }
 }

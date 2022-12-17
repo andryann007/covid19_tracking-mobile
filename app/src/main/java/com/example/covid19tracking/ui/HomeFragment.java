@@ -5,8 +5,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ProgressBar;
-import android.widget.TextView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -36,10 +38,12 @@ public class HomeFragment extends Fragment {
     private ProgressBar loadingContinentsData;
     private ContinentDataAdapter continentDataAdapter;
     private ArrayList<ContinentResult> continentDataResults;
+    private Spinner spinner;
 
     private final String yesterday = "false";
     private final String twoDaysAgo = "false";
     private final String allowNull = "false";
+    String[] sortText = {"Cases", "Recovered", "Deaths"};
     String sortBy;
 
     public HomeFragment() {
@@ -57,9 +61,38 @@ public class HomeFragment extends Fragment {
         Retrofit retrofit = ApiClient.getClient();
         apiService = retrofit.create(ApiService.class);
         continentDataResults = new ArrayList<>();
+
         getContinentsData(root);
+        getSpinnerData(root);
 
         return root;
+    }
+
+    private void getSpinnerData(View view){
+        spinner = view.findViewById(R.id.spinnerSort);
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item,
+                sortText);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(position == 0){
+                    sortContinentByCase(view);
+                } else if (position == 1){
+                    sortContinentByRecovered(view);
+                } else {
+                    sortContinentByDeath(view);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
     private void getContinentsData(View view){
@@ -88,6 +121,102 @@ public class HomeFragment extends Fragment {
             public void onFailure(@NonNull Call<ArrayList<ContinentResult>> call, @NonNull Throwable t) {
                 Toast.makeText(getContext(), "Fail to Fetch https://disease.sh/v3/covid-19/continents data",
                         Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void sortContinentByCase(View view){
+        sortBy = "cases";
+        RecyclerView rvContinentsData = view.findViewById(R.id.rvContinentData);
+        loadingContinentsData = view.findViewById(R.id.loadingContinentData);
+
+        Call<ArrayList<ContinentResult>> call = apiService.sortContinent(yesterday, twoDaysAgo, sortBy, allowNull);
+        call.enqueue(new Callback<ArrayList<ContinentResult>>(){
+
+            @Override
+            public void onResponse(@NonNull Call<ArrayList<ContinentResult>> call,
+                                   @NonNull Response<ArrayList<ContinentResult>> response) {
+                if(response.isSuccessful()){
+                    loadingContinentsData.setVisibility(View.GONE);
+                    continentDataResults = response.body();
+
+                    for(int i = 0; i < Objects.requireNonNull(continentDataResults).size(); i++){
+                        continentDataAdapter = new ContinentDataAdapter(continentDataResults, getContext());
+                        rvContinentsData.setAdapter(continentDataAdapter);
+                    }
+                    Toast.makeText(getContext(), "Successfully Sorted the Data by Total Case !!!",
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onFailure(@NonNull Call<ArrayList<ContinentResult>> call, @NonNull Throwable t) {
+                Toast.makeText(getContext(), "Fail to Sorted the Data", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void sortContinentByRecovered(View view){
+        sortBy = "recovered";
+        RecyclerView rvContinentsData = view.findViewById(R.id.rvContinentData);
+        loadingContinentsData = view.findViewById(R.id.loadingContinentData);
+
+        Call<ArrayList<ContinentResult>> call = apiService.sortContinent(yesterday, twoDaysAgo, sortBy, allowNull);
+        call.enqueue(new Callback<ArrayList<ContinentResult>>(){
+
+            @Override
+            public void onResponse(@NonNull Call<ArrayList<ContinentResult>> call,
+                                   @NonNull Response<ArrayList<ContinentResult>> response) {
+                if(response.isSuccessful()){
+                    loadingContinentsData.setVisibility(View.GONE);
+                    continentDataResults = response.body();
+
+                    for(int i = 0; i < Objects.requireNonNull(continentDataResults).size(); i++){
+                        continentDataAdapter = new ContinentDataAdapter(continentDataResults, getContext());
+                        rvContinentsData.setAdapter(continentDataAdapter);
+                    }
+                    Toast.makeText(getContext(), "Successfully Sorted the Data by Recovered Case !!!",
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onFailure(@NonNull Call<ArrayList<ContinentResult>> call, @NonNull Throwable t) {
+                Toast.makeText(getContext(), "Fail to Sorted the Data", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void sortContinentByDeath(View view){
+        sortBy = "deaths";
+        RecyclerView rvContinentsData = view.findViewById(R.id.rvContinentData);
+        loadingContinentsData = view.findViewById(R.id.loadingContinentData);
+
+        Call<ArrayList<ContinentResult>> call = apiService.sortContinent(yesterday, twoDaysAgo, sortBy, allowNull);
+        call.enqueue(new Callback<ArrayList<ContinentResult>>(){
+
+            @Override
+            public void onResponse(@NonNull Call<ArrayList<ContinentResult>> call,
+                                   @NonNull Response<ArrayList<ContinentResult>> response) {
+                if(response.isSuccessful()){
+                    loadingContinentsData.setVisibility(View.GONE);
+                    continentDataResults = response.body();
+
+                    for(int i = 0; i < Objects.requireNonNull(continentDataResults).size(); i++){
+                        continentDataAdapter = new ContinentDataAdapter(continentDataResults, getContext());
+                        rvContinentsData.setAdapter(continentDataAdapter);
+                    }
+                    Toast.makeText(getContext(), "Successfully Sorted the Data by Death Case !!!",
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onFailure(@NonNull Call<ArrayList<ContinentResult>> call, @NonNull Throwable t) {
+                Toast.makeText(getContext(), "Fail to Sorted the Data", Toast.LENGTH_SHORT).show();
             }
         });
     }

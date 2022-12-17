@@ -50,75 +50,297 @@
                 android:textSize="20sp"
                 android:textStyle="bold"/>
 
-            <TextView
-                android:id="@+id/textContinentTotalCase"
+            <LinearLayout
+                android:id="@+id/contentContinentUpdatedTime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="5dp"
-                android:text="@string/tv_continent_totalcase"
-                android:fontFamily="sans-serif"
-                android:textColor="@android:color/background_light"
-                android:textSize="18sp"/>
+                android:orientation="horizontal"
+                android:weightSum="3">
 
-            <TextView
-                android:id="@+id/textContinentActiveCase"
+                <TextView
+                    android:id="@+id/titleContinentUpdatedTime"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="@string/last_data_updated"
+                    android:fontFamily="sans-serif"
+                    android:textColor="@android:color/background_light"
+                    android:textSize="16sp"/>
+
+                <TextView
+                    android:id="@+id/textContinentUpdatedTime"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="sans-serif"
+                    android:textColor="@android:color/background_light"
+                    android:textSize="16sp"
+                    android:textStyle="bold"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/contentContinentPopulation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="5dp"
-                android:text="@string/tv_continent_activecase"
-                android:fontFamily="sans-serif"
-                android:textColor="@android:color/background_light"
-                android:textSize="18sp"/>
+                android:orientation="horizontal"
+                android:weightSum="3">
 
-            <TextView
-                android:id="@+id/textContinentDeath"
+                <TextView
+                    android:id="@+id/titleContinentPopulation"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="@string/total_population"
+                    android:fontFamily="sans-serif"
+                    android:textColor="@android:color/background_light"
+                    android:textSize="16sp"/>
+
+                <TextView
+                    android:id="@+id/textContinentPopulation"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="sans-serif"
+                    android:textColor="@android:color/background_light"
+                    android:textSize="16sp"
+                    android:textStyle="bold"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/contentContinentTotalCase"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="5dp"
-                android:text="@string/tv_continent_deathcase"
-                android:fontFamily="sans-serif"
-                android:textColor="@android:color/background_light"
-                android:textSize="18sp"/>
+                android:orientation="horizontal"
+                android:weightSum="3">
 
-            <TextView
-                android:id="@+id/textContinentRecovered"
+                <TextView
+                    android:id="@+id/titleContinentTotalCase"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="@string/tv_continent_totalcase"
+                    android:fontFamily="sans-serif"
+                    android:textColor="@android:color/background_light"
+                    android:textSize="16sp"/>
+
+                <TextView
+                    android:id="@+id/textContinentTotalCase"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="sans-serif"
+                    android:textColor="@android:color/background_light"
+                    android:textSize="16sp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/contentContinentTodayCase"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="10dp"
-                android:text="@string/tv_continent_recoveredcase"
-                android:fontFamily="sans-serif"
-                android:textColor="@android:color/background_light"
-                android:textSize="18sp"/>
+                android:layout_marginVertical="5dp"
+                android:orientation="horizontal"
+                android:weightSum="3">
 
-            <View
-                android:id="@+id/horizontalDivider"
-                android:layout_width="match_parent"
-                android:layout_marginHorizontal="-15dp"
-                android:layout_height="1.5dp"
-                android:background="@android:color/background_light" />
+                <TextView
+                    android:id="@+id/titleContinentTodayCase"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="@string/today_case"
+                    android:fontFamily="sans-serif"
+                    android:textColor="@android:color/background_light"
+                    android:textSize="16sp"/>
 
-            <TextView
-                android:id="@+id/textContinentList"
+                <TextView
+                    android:id="@+id/textContinentTodayCase"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="sans-serif"
+                    android:textColor="@android:color/background_light"
+                    android:textSize="16sp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/contentContinentRecovered"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="10dp"
-                android:text="@string/continent_country_list"
-                android:fontFamily="sans-serif"
-                android:textAlignment="center"
-                android:textColor="@android:color/background_light"
-                android:textSize="20sp"
-                android:textStyle="bold"/>
+                android:layout_marginVertical="5dp"
+                android:orientation="horizontal"
+                android:weightSum="3">
 
-            <TextView
-                android:id="@+id/textCountriesName"
+                <TextView
+                    android:id="@+id/titleContinentRecovered"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="@string/tv_continent_recoveredcase"
+                    android:fontFamily="sans-serif"
+                    android:textColor="@android:color/background_light"
+                    android:textSize="16sp"/>
+
+                <TextView
+                    android:id="@+id/textContinentRecovered"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="sans-serif"
+                    android:textColor="#02FF0C"
+                    android:textSize="16sp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/contentContinentTodayRecovered"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="10dp"
-                android:fontFamily="sans-serif"
-                android:textColor="@android:color/background_light"
-                android:textSize="18sp"/>
+                android:layout_marginVertical="5dp"
+                android:orientation="horizontal"
+                android:weightSum="3">
 
+                <TextView
+                    android:id="@+id/titleContinentTodayRecovered"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="@string/today_recovered"
+                    android:fontFamily="sans-serif"
+                    android:textColor="@android:color/background_light"
+                    android:textSize="16sp"/>
+
+                <TextView
+                    android:id="@+id/textContinentTodayRecovered"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="sans-serif"
+                    android:textColor="#02FF0C"
+                    android:textSize="16sp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/contentContinentDeath"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="5dp"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <TextView
+                    android:id="@+id/titleContinentDeath"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="@string/tv_continent_deathcase"
+                    android:fontFamily="sans-serif"
+                    android:textColor="@android:color/background_light"
+                    android:textSize="16sp"/>
+
+                <TextView
+                    android:id="@+id/textContinentDeath"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="sans-serif"
+                    android:textColor="#FF0000"
+                    android:textSize="16sp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/contentContinentTodayDeath"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="5dp"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <TextView
+                    android:id="@+id/titleContinentTodayDeath"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="@string/today_death"
+                    android:fontFamily="sans-serif"
+                    android:textColor="@android:color/background_light"
+                    android:textSize="16sp"/>
+
+                <TextView
+                    android:id="@+id/textContinentTodayDeath"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="sans-serif"
+                    android:textColor="#FF0000"
+                    android:textSize="16sp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/contentContinentActiveCase"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="5dp"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <TextView
+                    android:id="@+id/titleContinentActiveCase"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="@string/tv_continent_activecase"
+                    android:fontFamily="sans-serif"
+                    android:textColor="@android:color/background_light"
+                    android:textSize="16sp"/>
+
+                <TextView
+                    android:id="@+id/textContinentActiveCase"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="sans-serif"
+                    android:textColor="@android:color/background_light"
+                    android:textSize="16sp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/contentContinentCountries"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="5dp"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <TextView
+                    android:id="@+id/titleContinentCountriesList"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/continent_country_list"
+                    android:fontFamily="sans-serif"
+                    android:textColor="@android:color/background_light"
+                    android:textSize="16sp"/>
+
+                <TextView
+                    android:id="@+id/textCountriesName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:fontFamily="sans-serif"
+                    android:textColor="@android:color/background_light"
+                    android:textSize="16sp"/>
+
+            </LinearLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </RelativeLayout>

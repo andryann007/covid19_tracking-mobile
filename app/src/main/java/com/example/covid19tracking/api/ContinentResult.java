@@ -21,6 +21,61 @@ public class ContinentResult {
     @SerializedName("countries")
     String [] countries;
 
+    @SerializedName("updated")
+    int updated;
+
+    @SerializedName("todayCases")
+    int todayCases;
+
+    @SerializedName("todayDeaths")
+    int todayDeaths;
+
+    @SerializedName("todayRecovered")
+    int todayRecovered;
+
+    @SerializedName("population")
+    int population;
+
+    public int getUpdated() {
+        return updated;
+    }
+
+    public void setUpdated(int updated) {
+        this.updated = updated;
+    }
+
+    public int getTodayCases() {
+        return todayCases;
+    }
+
+    public void setTodayCases(int todayCases) {
+        this.todayCases = todayCases;
+    }
+
+    public int getTodayDeaths() {
+        return todayDeaths;
+    }
+
+    public void setTodayDeaths(int todayDeaths) {
+        this.todayDeaths = todayDeaths;
+    }
+
+    public int getTodayRecovered() {
+        return todayRecovered;
+    }
+
+    public void setTodayRecovered(int todayRecovered) {
+        this.todayRecovered = todayRecovered;
+    }
+
+    public int getPopulation() {
+        return population;
+    }
+
+    public void setPopulation(int population) {
+        this.population = population;
+    }
+
     //Constructor
     public ContinentResult(String continent, int cases, int deaths, int recovered, int active, String [] countries) {
         this.continent = continent;
