@@ -13,17 +13,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.covid19tracking.R;
 import com.example.covid19tracking.activities.CountryDetailActivity;
-import com.example.covid19tracking.api.GlobalResult;
+import com.example.covid19tracking.api.CountryResult;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Locale;
 
 public class CountryDataAdapter extends RecyclerView.Adapter<CountryDataAdapter.DataViewHolder>{
-    private final ArrayList<GlobalResult> globalResults;
+    private final ArrayList<CountryResult> countryResults;
     private final Context context;
 
-    public CountryDataAdapter(ArrayList<GlobalResult> globalResults, Context context){
-        this.globalResults = globalResults;
+    public CountryDataAdapter(ArrayList<CountryResult> countryResults, Context context){
+        this.countryResults = countryResults;
         this.context = context;
     }
 
@@ -36,38 +36,52 @@ public class CountryDataAdapter extends RecyclerView.Adapter<CountryDataAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull CountryDataAdapter.DataViewHolder holder, int position) {
-        holder.bindItem(globalResults.get(position), context);
+        holder.bindItem(countryResults.get(position), context);
     }
 
     @Override
-    public int getItemCount(){ return globalResults.size();}
+    public int getItemCount(){ return countryResults.size();}
 
     static class DataViewHolder extends RecyclerView.ViewHolder{
-        private final TextView tableContinentName, tableTotalCase, tableDeath, tableRecover;
+        private final TextView tvCountryName, tvTotalCase, tvDeath, tvRecover;
 
         DataViewHolder(@NonNull View itemView){
             super(itemView);
-            tableContinentName = itemView.findViewById(R.id.tvContinentName);
-            tableTotalCase = itemView.findViewById(R.id.tvContinentCases);
-            tableDeath = itemView.findViewById(R.id.tvContinentDeath);
-            tableRecover = itemView.findViewById(R.id.tvContinentRecovered);
+            tvCountryName = itemView.findViewById(R.id.tvContinentName);
+            tvTotalCase = itemView.findViewById(R.id.tvContinentCases);
+            tvDeath = itemView.findViewById(R.id.tvContinentDeath);
+            tvRecover = itemView.findViewById(R.id.tvContinentRecovered);
         }
 
-        void bindItem(GlobalResult globalResult, Context context){
-            setHtmlText(tableContinentName, globalResult.getCountry());
-            setHtmlText(tableTotalCase, String.valueOf(globalResult.getGlobalCases()));
-            setHtmlText(tableDeath, String.valueOf(globalResult.getDeaths()));
-            setHtmlText(tableRecover, String.valueOf(globalResult.getRecovered()));
+        void bindItem(CountryResult countryResult, Context context){
+            setTitleText(tvCountryName, countryResult.getCountry());
+
+            int totalCase = countryResult.getGlobalCases();
+            String mTotalCase = String.format(Locale.US, "%,d",totalCase).replace(',','.');
+            setHtmlText(tvTotalCase, mTotalCase);
+
+            int deathCase = countryResult.getDeaths();
+            String mDeathCase = String.format(Locale.US, "%,d",deathCase).replace(',','.');
+            setHtmlText(tvDeath, mDeathCase);
+
+            int recoveredCase = countryResult.getRecovered();
+            String mRecoveredCase = String.format(Locale.US, "%,d",recoveredCase).replace(',','.');
+            setHtmlText(tvRecover, mRecoveredCase);
 
             itemView.setOnClickListener(v -> {
                 Intent countryDetail = new Intent(context, CountryDetailActivity.class);
                 countryDetail.putExtra("tipe", "country");
-                countryDetail.putExtra("country_name", globalResult.getCountry());
+                countryDetail.putExtra("country_name", countryResult.getCountry());
                 context.startActivity(countryDetail);
             });
         }
     }
+
     private static void setHtmlText(TextView tv, String textValue){
-        tv.setText(HtmlCompat.fromHtml("<b>" + textValue + "</b>", HtmlCompat.FROM_HTML_MODE_LEGACY));
+        tv.setText(HtmlCompat.fromHtml("<b>" + textValue + " Case</b>", HtmlCompat.FROM_HTML_MODE_LEGACY));
+    }
+
+    private static void setTitleText(TextView tv, String textValue){
+        tv.setText(HtmlCompat.fromHtml("<b>Country Name : " + textValue + "</b>", HtmlCompat.FROM_HTML_MODE_LEGACY));
     }
 }

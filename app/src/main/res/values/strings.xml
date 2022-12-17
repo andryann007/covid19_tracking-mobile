@@ -56,10 +56,10 @@
     <string name="total_recovered">Total Recovered</string>
     <string name="sort">Sort</string>
     <string name="tv_continent_name">Continent Name</string>
-    <string name="tv_continent_totalcase">Continent Total Case</string>
-    <string name="tv_continent_activecase">Continent Active Case</string>
-    <string name="tv_continent_deathcase">Continent Death Case</string>
-    <string name="tv_continent_recoveredcase">Continent Recovered Case</string>
+    <string name="tv_continent_totalcase">Total Cases :</string>
+    <string name="tv_continent_activecase">Active Cases :</string>
+    <string name="tv_continent_deathcase">Total Death :</string>
+    <string name="tv_continent_recoveredcase">Total Recovered :</string>
     <string name="continent_country_list">Continent Country List</string>
     <string name="country_name">Country Name</string>
     <string name="country_continent">Country Continent</string>

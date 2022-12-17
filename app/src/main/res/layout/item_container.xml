@@ -1,53 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="15dp"
     android:layout_marginVertical="5dp"
-    android:stretchColumns="1,2,3"
     android:background="@android:color/background_dark">
 
-    <TableRow tools:ignore="UselessParent">
-        <TextView
-            android:id="@+id/tvContinentName"
-            android:layout_column="1"
-            android:fontFamily="sans-serif"
-            android:text="@string/continent"
-            android:textAlignment="center"
-            android:textColor="@android:color/background_light"
-            android:textSize="14sp"/>
+    <TextView
+        android:id="@+id/tvContinentName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="@string/tv_continent_name"
+        android:maxLines="2"
+        android:fontFamily="sans-serif"
+        android:textAlignment="center"
+        android:textColor="@android:color/background_light"
+        android:textSize="20sp"/>
 
-        <TextView
-            android:id="@+id/tvContinentCases"
-            android:layout_column="1"
-            android:layout_marginHorizontal="15dp"
-            android:fontFamily="sans-serif"
-            android:text="@string/cases"
-            android:textAlignment="center"
-            android:textColor="@android:color/background_light"
-            android:textSize="14sp"/>
+    <TextView
+        android:id="@+id/titleContinentCases"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvContinentName"
+        android:text="@string/tv_continent_totalcase"
+        android:maxLines="1"
+        android:fontFamily="sans-serif"
+        android:textColor="@android:color/background_light"
+        android:textSize="14sp"
+        android:textStyle="bold"/>
 
-        <TextView
-            android:id="@+id/tvContinentDeath"
-            android:layout_column="1"
-            android:layout_marginHorizontal="15dp"
-            android:fontFamily="sans-serif"
-            android:text="@string/death"
-            android:textAlignment="center"
-            android:textColor="@android:color/background_light"
-            android:textSize="14sp"/>
+    <TextView
+        android:id="@+id/titleContinentRecovered"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvContinentName"
+        android:layout_centerHorizontal="true"
+        android:text="@string/tv_continent_recoveredcase"
+        android:maxLines="1"
+        android:fontFamily="sans-serif"
+        android:textColor="@android:color/background_light"
+        android:textSize="14sp"
+        android:textStyle="bold"/>
 
-        <TextView
-            android:id="@+id/tvContinentRecovered"
-            android:layout_column="1"
-            android:layout_marginHorizontal="15dp"
-            android:fontFamily="sans-serif"
-            android:text="@string/recover"
-            android:textAlignment="center"
-            android:textColor="@android:color/background_light"
-            android:textSize="14sp"/>
+    <TextView
+        android:id="@+id/titleContinentDeath"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvContinentName"
+        android:layout_alignParentEnd="true"
+        android:text="@string/tv_continent_deathcase"
+        android:maxLines="1"
+        android:fontFamily="sans-serif"
+        android:textColor="@android:color/background_light"
+        android:textSize="14sp"
+        android:textStyle="bold"/>
 
-    </TableRow>
+    <TextView android:id="@+id/tvContinentCases"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/titleContinentCases"
+        android:layout_marginVertical="2dp"
+        android:fontFamily="sans-serif"
+        android:text="@string/cases"
+        android:textColor="@android:color/background_light"
+        android:textSize="14sp"/>
 
-</TableLayout>
+    <TextView android:id="@+id/tvContinentRecovered"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/titleContinentCases"
+        android:layout_centerHorizontal="true"
+        android:layout_marginVertical="2dp"
+        android:fontFamily="sans-serif"
+        android:text="@string/recover"
+        android:textColor="@android:color/background_light"
+        android:textSize="14sp"/>
+
+    <TextView android:id="@+id/tvContinentDeath"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/titleContinentCases"
+        android:layout_alignParentEnd="true"
+        android:layout_marginVertical="2dp"
+        android:fontFamily="sans-serif"
+        android:text="@string/death"
+        android:textColor="@android:color/background_light"
+        android:textSize="14sp"/>
+
+    <View
+        android:id="@+id/horizontalDivider"
+        android:layout_width="match_parent"
+        android:layout_height="1.5dp"
+        android:layout_below="@id/tvContinentCases"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="5dp"
+        android:background="@android:color/background_light" />
+
+
+</RelativeLayout>

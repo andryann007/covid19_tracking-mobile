@@ -15,12 +15,20 @@ public class ContinentResult {
     @SerializedName("recovered")
     int recovered;
 
+    @SerializedName("active")
+    int active;
+
+    @SerializedName("countries")
+    String [] countries;
+
     //Constructor
-    public ContinentResult(String continent, int cases, int deaths, int recovered) {
+    public ContinentResult(String continent, int cases, int deaths, int recovered, int active, String [] countries) {
         this.continent = continent;
         this.cases = cases;
         this.deaths = deaths;
         this.recovered = recovered;
+        this.active = active;
+        this.countries = countries;
     }
 
     //Getter & Setter
@@ -52,5 +60,21 @@ public class ContinentResult {
 
     public void setRecovered(int recovered) {
         this.recovered = recovered;
+    }
+
+    public int getActive() {
+        return active;
+    }
+
+    public void setActive(int active) {
+        this.active = active;
+    }
+
+    public String[] getCountries() {
+        return countries;
+    }
+
+    public void setCountries(String[] countries) {
+        this.countries = countries;
     }
 }

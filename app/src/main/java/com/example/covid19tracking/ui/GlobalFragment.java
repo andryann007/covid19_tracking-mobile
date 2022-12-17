@@ -19,7 +19,7 @@ import com.example.covid19tracking.adapter.CountryDataAdapter;
 import com.example.covid19tracking.api.ApiClient;
 import com.example.covid19tracking.api.ApiService;
 import com.example.covid19tracking.api.GeneralResult;
-import com.example.covid19tracking.api.GlobalResult;
+import com.example.covid19tracking.api.CountryResult;
 import com.example.covid19tracking.databinding.FragmentGlobalBinding;
 
 import java.util.ArrayList;
@@ -38,7 +38,7 @@ public class GlobalFragment extends Fragment {
 
     private ProgressBar loadingGlobalData;
     private CountryDataAdapter countryDataAdapter;
-    private ArrayList<GlobalResult> globalDataResults;
+    private ArrayList<CountryResult> globalDataResults;
     TextView tvActiveCase, tvTotalCase, tvDeath, tvRecovered;
 
     private final String yesterday = "false";
@@ -72,11 +72,11 @@ public class GlobalFragment extends Fragment {
         RecyclerView rvGlobalData = view.findViewById(R.id.rvCountryData);
         loadingGlobalData = view.findViewById(R.id.loadingCountryData);
 
-        Call<ArrayList<GlobalResult>> call = apiService.getCountriesData(yesterday, twoDaysAgo, sort ,allowNull);
-        call.enqueue(new Callback<ArrayList<GlobalResult>>(){
+        Call<ArrayList<CountryResult>> call = apiService.getCountriesData(yesterday, twoDaysAgo, sort ,allowNull);
+        call.enqueue(new Callback<ArrayList<CountryResult>>(){
 
             @Override
-            public void onResponse(@NonNull Call<ArrayList<GlobalResult>> call, @NonNull Response<ArrayList<GlobalResult>> response) {
+            public void onResponse(@NonNull Call<ArrayList<CountryResult>> call, @NonNull Response<ArrayList<CountryResult>> response) {
                 if(response.isSuccessful()){
                     loadingGlobalData.setVisibility(View.GONE);
                     globalDataResults = response.body();
@@ -90,7 +90,7 @@ public class GlobalFragment extends Fragment {
 
             @SuppressLint("SetTextI18n")
             @Override
-            public void onFailure(@NonNull Call<ArrayList<GlobalResult>> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<ArrayList<CountryResult>> call, @NonNull Throwable t) {
                 Toast.makeText(getContext(), "Fail to Fetch https://disease.sh/v3/covid-19/countries data",
                         Toast.LENGTH_SHORT).show();
             }

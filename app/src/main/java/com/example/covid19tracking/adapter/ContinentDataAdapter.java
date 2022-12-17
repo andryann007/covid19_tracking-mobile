@@ -1,5 +1,6 @@
 package com.example.covid19tracking.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -16,6 +17,12 @@ import com.example.covid19tracking.activities.ContinentDetailActivity;
 import com.example.covid19tracking.api.ContinentResult;
 
 import java.util.ArrayList;
+import java.util.Locale;
+import java.util.Objects;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ContinentDataAdapter extends RecyclerView.Adapter<ContinentDataAdapter.DataViewHolder>{
     private final ArrayList<ContinentResult> continentResults;
@@ -53,10 +60,19 @@ public class ContinentDataAdapter extends RecyclerView.Adapter<ContinentDataAdap
         }
 
         void bindItem(ContinentResult continent, Context context){
-            setHtmlText(tvContinentName, continent.getContinent());
-            setHtmlText(tvTotalCase, String.valueOf(continent.getContinentCases()));
-            setHtmlText(tvDeath, String.valueOf(continent.getDeaths()));
-            setHtmlText(tvRecover, String.valueOf(continent.getRecovered()));
+            setTitleText(tvContinentName, continent.getContinent());
+
+            int totalCase = continent.getContinentCases();
+            String mTotalCase = String.format(Locale.US, "%,d",totalCase).replace(',','.');
+            setHtmlText(tvTotalCase, mTotalCase);
+
+            int deathCase = continent.getDeaths();
+            String mDeathCase = String.format(Locale.US, "%,d",deathCase).replace(',','.');
+            setHtmlText(tvDeath, mDeathCase);
+
+            int recoveredCase = continent.getRecovered();
+            String mRecoveredCase = String.format(Locale.US, "%,d",recoveredCase).replace(',','.');
+            setHtmlText(tvRecover, mRecoveredCase);
 
             itemView.setOnClickListener(v -> {
                 Intent continentDetail = new Intent(context, ContinentDetailActivity.class);
@@ -66,7 +82,12 @@ public class ContinentDataAdapter extends RecyclerView.Adapter<ContinentDataAdap
             });
         }
     }
+
     private static void setHtmlText(TextView tv, String textValue){
-        tv.setText(HtmlCompat.fromHtml("<b>" + textValue + "</b>", HtmlCompat.FROM_HTML_MODE_LEGACY));
+        tv.setText(HtmlCompat.fromHtml("<b>" + textValue + " Case</b>", HtmlCompat.FROM_HTML_MODE_LEGACY));
+    }
+
+    private static void setTitleText(TextView tv, String textValue){
+        tv.setText(HtmlCompat.fromHtml("<b>Continent Name : " + textValue + "</b>", HtmlCompat.FROM_HTML_MODE_LEGACY));
     }
 }
