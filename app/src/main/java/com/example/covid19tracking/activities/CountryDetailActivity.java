@@ -86,7 +86,7 @@ public class CountryDetailActivity extends AppCompatActivity {
                     String continent = response.body().getContinent();
                     binding.textCountryContinent.setText(continent);
 
-                    int population = response.body().getPopulation();
+                    long population = response.body().getPopulation();
                     String mPopulation = String.format(Locale.US, "%,d",population).replace(',','.');
                     setPopulationText(binding.textCountryPopulation, mPopulation);
 

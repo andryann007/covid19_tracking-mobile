@@ -34,7 +34,7 @@ public class CountryResult {
     int todayRecovered;
 
     @SerializedName("population")
-    int population;
+    long population;
 
     @SerializedName("continent")
     String continent;
@@ -71,7 +71,7 @@ public class CountryResult {
         this.todayRecovered = todayRecovered;
     }
 
-    public int getPopulation() {
+    public long getPopulation() {
         return population;
     }
 

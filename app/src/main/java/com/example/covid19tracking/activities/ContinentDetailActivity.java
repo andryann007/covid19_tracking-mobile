@@ -78,7 +78,7 @@ public class ContinentDetailActivity extends AppCompatActivity {
                     String mDate = dateFormat.format(date);
                     binding.textContinentUpdatedTime.setText(mDate);
 
-                    int population = response.body().getPopulation();
+                    long population = response.body().getPopulation();
                     String mPopulation = String.format(Locale.US, "%,d",population).replace(',','.');
                     setPopulationText(binding.textContinentPopulation, mPopulation);
 
