@@ -77,8 +77,8 @@ public class CountryDetailActivity extends AppCompatActivity {
 
                     setTitleText(binding.textCountryName, response.body().getCountry());
 
-                    int timeStamp = response.body().getUpdated();
-                    Date date = new Date(Long.parseLong(String.valueOf(timeStamp)));
+                    long timeStamp = response.body().getUpdated();
+                    Date date = new Date(timeStamp);
                     @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yy");
                     String mDate = dateFormat.format(date);
                     binding.textCountryUpdatedTime.setText(mDate);

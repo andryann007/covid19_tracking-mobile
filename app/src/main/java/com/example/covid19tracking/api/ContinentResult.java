@@ -22,7 +22,7 @@ public class ContinentResult {
     String [] countries;
 
     @SerializedName("updated")
-    int updated;
+    long updated;
 
     @SerializedName("todayCases")
     int todayCases;
@@ -36,7 +36,7 @@ public class ContinentResult {
     @SerializedName("population")
     int population;
 
-    public int getUpdated() {
+    public long getUpdated() {
         return updated;
     }
 

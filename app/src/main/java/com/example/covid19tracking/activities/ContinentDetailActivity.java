@@ -72,8 +72,8 @@ public class ContinentDetailActivity extends AppCompatActivity {
 
                     setTitleText(binding.textContinentName, response.body().getContinent());
 
-                    int timeStamp = response.body().getUpdated();
-                    Date date = new Date(Long.parseLong(String.valueOf(timeStamp)));
+                    long timeStamp = response.body().getUpdated();
+                    Date date = new Date(timeStamp);
                     @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yy");
                     String mDate = dateFormat.format(date);
                     binding.textContinentUpdatedTime.setText(mDate);
