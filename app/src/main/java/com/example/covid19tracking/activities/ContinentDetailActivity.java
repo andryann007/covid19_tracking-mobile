@@ -71,19 +71,19 @@ public class ContinentDetailActivity extends AppCompatActivity {
 
                     int totalCase = response.body().getContinentCases();
                     String mTotalCase = String.format(Locale.US, "%,d",totalCase).replace(',','.');
-                    setHtmlText(binding.textContinentTotalCase, mTotalCase);
+                    setTotalCaseText(binding.textContinentTotalCase, mTotalCase);
 
                     int activeCase = response.body().getActive();
                     String mActiveCase = String.format(Locale.US, "%,d",activeCase).replace(',','.');
-                    setHtmlText(binding.textContinentActiveCase, mActiveCase);
+                    setActiveCaseText(binding.textContinentActiveCase, mActiveCase);
 
                     int deathCase = response.body().getDeaths();
                     String mDeathCase = String.format(Locale.US, "%,d",deathCase).replace(',','.');
-                    setHtmlText(binding.textContinentDeath, mDeathCase);
+                    setDeathCaseText(binding.textContinentDeath, mDeathCase);
 
                     int recoveredCase = response.body().getRecovered();
                     String mRecoveredCase = String.format(Locale.US, "%,d",recoveredCase).replace(',','.');
-                    setHtmlText(binding.textContinentRecovered, mRecoveredCase);
+                    setRecoveredCaseText(binding.textContinentRecovered, mRecoveredCase);
 
                     String[] countryName = response.body().getCountries();
                     String mCountryName = Arrays.toString(countryName);
@@ -98,8 +98,20 @@ public class ContinentDetailActivity extends AppCompatActivity {
         });
     }
 
-    private void setHtmlText(TextView tv, String textValue){
-        tv.setText(HtmlCompat.fromHtml("<b>" + textValue + " Cases</b>", HtmlCompat.FROM_HTML_MODE_LEGACY));
+    private void setTotalCaseText(TextView tv, String textValue){
+        tv.setText(HtmlCompat.fromHtml("<b>Total Case : " + textValue + " Cases</b>", HtmlCompat.FROM_HTML_MODE_LEGACY));
+    }
+
+    private void setActiveCaseText(TextView tv, String textValue){
+        tv.setText(HtmlCompat.fromHtml("<b>Active Case : " + textValue + " Cases</b>", HtmlCompat.FROM_HTML_MODE_LEGACY));
+    }
+
+    private void setDeathCaseText(TextView tv, String textValue){
+        tv.setText(HtmlCompat.fromHtml("<b>Death Case : " + textValue + " Cases</b>", HtmlCompat.FROM_HTML_MODE_LEGACY));
+    }
+
+    private void setRecoveredCaseText(TextView tv, String textValue){
+        tv.setText(HtmlCompat.fromHtml("<b>Recovered Case : " + textValue + " Cases</b>", HtmlCompat.FROM_HTML_MODE_LEGACY));
     }
 
     private void setTitleText(TextView tv, String textValue){

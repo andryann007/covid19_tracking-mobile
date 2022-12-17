@@ -1,5 +1,6 @@
 package com.example.covid19tracking.activities;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.widget.TextView;
 
@@ -39,10 +40,10 @@ public class CountryDetailActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        country = getIntent().getStringExtra("country_name");
-
         Retrofit retrofit = ApiClient.getClient();
-        ApiService apiService = retrofit.create(ApiService.class);
+        apiService = retrofit.create(ApiService.class);
+
+        country = getIntent().getStringExtra("country_name");
 
         binding.toolbar.setOnClickListener(v-> onBackPressed());
 
@@ -72,22 +73,22 @@ public class CountryDetailActivity extends AppCompatActivity {
 
                     int totalCase = response.body().getGlobalCases();
                     String mTotalCase = String.format(Locale.US, "%,d",totalCase).replace(',','.');
-                    setHtmlText(binding.textCountryTotalCase, mTotalCase);
+                    setTotalCaseText(binding.textCountryTotalCase, mTotalCase);
 
                     int activeCase = response.body().getActive();
                     String mActiveCase = String.format(Locale.US, "%,d",activeCase).replace(',','.');
-                    setHtmlText(binding.textCountryActiveCase, mActiveCase);
+                    setActiveCaseText(binding.textCountryActiveCase, mActiveCase);
 
                     int deathCase = response.body().getDeaths();
                     String mDeathCase = String.format(Locale.US, "%,d",deathCase).replace(',','.');
-                    setHtmlText(binding.textCountryDeath, mDeathCase);
+                    setDeathCaseText(binding.textCountryDeath, mDeathCase);
 
                     int recoveredCase = response.body().getRecovered();
                     String mRecoveredCase = String.format(Locale.US, "%,d",recoveredCase).replace(',','.');
-                    setHtmlText(binding.textCountryRecovered, mRecoveredCase);
+                    setRecoveredCaseText(binding.textCountryRecovered, mRecoveredCase);
 
-                    Picasso.get().load(response.body().getGlobalDetail().getFlagsURL()).into
-                            (binding.imageCountryFlag);
+                    Uri countryFlagURL = Uri.parse(response.body().getGlobalDetail().getFlagsURL());
+                    Picasso.get().load(countryFlagURL).into(binding.imageCountryFlag);
                 }
             }
 
@@ -98,8 +99,20 @@ public class CountryDetailActivity extends AppCompatActivity {
         });
     }
 
-    private void setHtmlText(TextView tv, String textValue){
-        tv.setText(HtmlCompat.fromHtml("<b>" + textValue + " Cases</b>", HtmlCompat.FROM_HTML_MODE_LEGACY));
+    private void setTotalCaseText(TextView tv, String textValue){
+        tv.setText(HtmlCompat.fromHtml("<b>Total Case : " + textValue + " Cases</b>", HtmlCompat.FROM_HTML_MODE_LEGACY));
+    }
+
+    private void setActiveCaseText(TextView tv, String textValue){
+        tv.setText(HtmlCompat.fromHtml("<b>Active Case : " + textValue + " Cases</b>", HtmlCompat.FROM_HTML_MODE_LEGACY));
+    }
+
+    private void setDeathCaseText(TextView tv, String textValue){
+        tv.setText(HtmlCompat.fromHtml("<b>Death Case : " + textValue + " Cases</b>", HtmlCompat.FROM_HTML_MODE_LEGACY));
+    }
+
+    private void setRecoveredCaseText(TextView tv, String textValue){
+        tv.setText(HtmlCompat.fromHtml("<b>Recovered Case : " + textValue + " Cases</b>", HtmlCompat.FROM_HTML_MODE_LEGACY));
     }
 
     private void setTitleText(TextView tv, String textValue){

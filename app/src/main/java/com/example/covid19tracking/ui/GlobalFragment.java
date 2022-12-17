@@ -6,11 +6,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.core.text.HtmlCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,7 +16,6 @@ import com.example.covid19tracking.R;
 import com.example.covid19tracking.adapter.CountryDataAdapter;
 import com.example.covid19tracking.api.ApiClient;
 import com.example.covid19tracking.api.ApiService;
-import com.example.covid19tracking.api.GeneralResult;
 import com.example.covid19tracking.api.CountryResult;
 import com.example.covid19tracking.databinding.FragmentGlobalBinding;
 
@@ -39,12 +36,11 @@ public class GlobalFragment extends Fragment {
     private ProgressBar loadingGlobalData;
     private CountryDataAdapter countryDataAdapter;
     private ArrayList<CountryResult> globalDataResults;
-    TextView tvActiveCase, tvTotalCase, tvDeath, tvRecovered;
 
     private final String yesterday = "false";
     private final String twoDaysAgo = "false";
-    private final String sort = "cases";
     private final String allowNull = "false";
+    String sortBy;
 
     public GlobalFragment() {
         // Required empty public constructor
@@ -62,7 +58,6 @@ public class GlobalFragment extends Fragment {
         apiService = retrofit.create(ApiService.class);
         globalDataResults = new ArrayList<>();
 
-        getTotalData(root);
         getCountriesData(root);
 
         return root;
@@ -72,7 +67,7 @@ public class GlobalFragment extends Fragment {
         RecyclerView rvGlobalData = view.findViewById(R.id.rvCountryData);
         loadingGlobalData = view.findViewById(R.id.loadingCountryData);
 
-        Call<ArrayList<CountryResult>> call = apiService.getCountriesData(yesterday, twoDaysAgo, sort ,allowNull);
+        Call<ArrayList<CountryResult>> call = apiService.getCountriesData(yesterday, twoDaysAgo, allowNull);
         call.enqueue(new Callback<ArrayList<CountryResult>>(){
 
             @Override
@@ -95,35 +90,6 @@ public class GlobalFragment extends Fragment {
                         Toast.LENGTH_SHORT).show();
             }
         });
-    }
-
-    private void getTotalData(View view){
-        tvActiveCase = view.findViewById(R.id.textValueActiveCase);
-        tvTotalCase = view.findViewById(R.id.textValueTotalCase);
-        tvDeath = view.findViewById(R.id.textValueDeath);
-        tvRecovered = view.findViewById(R.id.textValueRecovered);
-
-        Call<GeneralResult> call = apiService.getGeneralData(yesterday, twoDaysAgo, allowNull);
-        call.enqueue(new Callback<GeneralResult>(){
-            @Override
-            public void onResponse(@NonNull Call<GeneralResult> call, @NonNull Response<GeneralResult> response) {
-                if(response.body() != null){
-                    setHtmlText(tvActiveCase, String.valueOf(response.body().getActive()));
-                    setHtmlText(tvTotalCase, String.valueOf(response.body().getGeneralCases()));
-                    setHtmlText(tvDeath, String.valueOf(response.body().getDeaths()));
-                    setHtmlText(tvRecovered, String.valueOf(response.body().getRecovered()));
-                }
-            }
-
-            @SuppressLint("SetTextI18n")
-            @Override
-            public void onFailure(@NonNull Call<GeneralResult> call, @NonNull Throwable t) {
-            }
-        });
-    }
-
-    private void setHtmlText(TextView tv, String textValue){
-        tv.setText(HtmlCompat.fromHtml("<b>" + textValue + " Cases</b>", HtmlCompat.FROM_HTML_MODE_LEGACY));
     }
 
     @Override

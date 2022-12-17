@@ -30,9 +30,9 @@
         android:id="@+id/imageCountryFlag"
         android:layout_width="240dp"
         android:layout_height="180dp"
+        android:scaleType="fitXY"
         android:layout_below="@+id/toolbar"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/ic_launcher_foreground"
         android:contentDescription="@string/country_flag" />
 
     <androidx.core.widget.NestedScrollView

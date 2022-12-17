@@ -10,7 +10,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.core.text.HtmlCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,7 +18,6 @@ import com.example.covid19tracking.adapter.ContinentDataAdapter;
 import com.example.covid19tracking.api.ApiClient;
 import com.example.covid19tracking.api.ApiService;
 import com.example.covid19tracking.api.ContinentResult;
-import com.example.covid19tracking.api.GeneralResult;
 import com.example.covid19tracking.databinding.FragmentHomeBinding;
 
 import java.util.ArrayList;
@@ -39,12 +37,10 @@ public class HomeFragment extends Fragment {
     private ContinentDataAdapter continentDataAdapter;
     private ArrayList<ContinentResult> continentDataResults;
 
-    TextView tvActiveCase, tvTotalCase, tvDeath, tvRecovered;
-
     private final String yesterday = "false";
     private final String twoDaysAgo = "false";
-    private final String sort = "cases";
     private final String allowNull = "false";
+    String sortBy;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -61,7 +57,6 @@ public class HomeFragment extends Fragment {
         Retrofit retrofit = ApiClient.getClient();
         apiService = retrofit.create(ApiService.class);
         continentDataResults = new ArrayList<>();
-        getTotalData(root);
         getContinentsData(root);
 
         return root;
@@ -71,7 +66,7 @@ public class HomeFragment extends Fragment {
         RecyclerView rvContinentsData = view.findViewById(R.id.rvContinentData);
         loadingContinentsData = view.findViewById(R.id.loadingContinentData);
 
-        Call<ArrayList<ContinentResult>> call = apiService.getContinentsData(yesterday, twoDaysAgo, sort, allowNull);
+        Call<ArrayList<ContinentResult>> call = apiService.getContinentsData(yesterday, twoDaysAgo, allowNull);
         call.enqueue(new Callback<ArrayList<ContinentResult>>(){
 
             @Override
@@ -91,39 +86,10 @@ public class HomeFragment extends Fragment {
             @SuppressLint("SetTextI18n")
             @Override
             public void onFailure(@NonNull Call<ArrayList<ContinentResult>> call, @NonNull Throwable t) {
-            }
-        });
-    }
-
-    private void getTotalData(View view){
-        tvActiveCase = view.findViewById(R.id.textValueActiveCase);
-        tvTotalCase = view.findViewById(R.id.textValueTotalCase);
-        tvDeath = view.findViewById(R.id.textValueDeath);
-        tvRecovered = view.findViewById(R.id.textValueRecovered);
-
-        Call<GeneralResult> call = apiService.getGeneralData(yesterday, twoDaysAgo, allowNull);
-        call.enqueue(new Callback<GeneralResult>(){
-            @Override
-            public void onResponse(@NonNull Call<GeneralResult> call, @NonNull Response<GeneralResult> response) {
-                if(response.body() != null){
-                    setHtmlText(tvActiveCase, String.valueOf(response.body().getActive()));
-                    setHtmlText(tvTotalCase, String.valueOf(response.body().getGeneralCases()));
-                    setHtmlText(tvDeath, String.valueOf(response.body().getDeaths()));
-                    setHtmlText(tvRecovered, String.valueOf(response.body().getRecovered()));
-                }
-            }
-
-            @SuppressLint("SetTextI18n")
-            @Override
-            public void onFailure(@NonNull Call<GeneralResult> call, @NonNull Throwable t) {
                 Toast.makeText(getContext(), "Fail to Fetch https://disease.sh/v3/covid-19/continents data",
                         Toast.LENGTH_SHORT).show();
             }
         });
-    }
-
-    private void setHtmlText(TextView tv, String textValue){
-        tv.setText(HtmlCompat.fromHtml("<b>" + textValue + " Cases</b>", HtmlCompat.FROM_HTML_MODE_LEGACY));
     }
 
     @Override

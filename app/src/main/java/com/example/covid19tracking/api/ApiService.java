@@ -14,11 +14,11 @@ public interface ApiService {
 
     @GET("/v3/covid-19/continents")
     Call<ArrayList<ContinentResult>> getContinentsData(@Query("yesterday") String yesterday, @Query("twoDaysAgo")
-            String twoDaysAgo, @Query("sort") String sort, @Query("allowNull") String allowNull);
+            String twoDaysAgo, @Query("allowNull") String allowNull);
 
     @GET("/v3/covid-19/countries")
     Call<ArrayList<CountryResult>> getCountriesData(@Query("yesterday") String yesterday, @Query("twoDaysAgo")
-            String twoDaysAgo, @Query("sort") String sort, @Query("allowNull") String allowNull);
+            String twoDaysAgo, @Query("allowNull") String allowNull);
 
     @GET("/v3/covid-19/continents/{continent}")
     Call<ContinentResult> getContinentsDetail(@Path("continent") String continent, @Query("yesterday")
