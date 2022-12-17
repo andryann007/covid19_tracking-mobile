@@ -1,6 +1,5 @@
 package com.example.covid19tracking.adapter;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -18,11 +17,6 @@ import com.example.covid19tracking.api.ContinentResult;
 
 import java.util.ArrayList;
 import java.util.Locale;
-import java.util.Objects;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class ContinentDataAdapter extends RecyclerView.Adapter<ContinentDataAdapter.DataViewHolder>{
     private final ArrayList<ContinentResult> continentResults;
@@ -37,7 +31,7 @@ public class ContinentDataAdapter extends RecyclerView.Adapter<ContinentDataAdap
     @Override
     public ContinentDataAdapter.DataViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType){
         return new DataViewHolder(LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_container, parent, false));
+                .inflate(R.layout.continent_item_container, parent, false));
     }
 
     @Override

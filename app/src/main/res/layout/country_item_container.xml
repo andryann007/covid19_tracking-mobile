@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="2.5dp"
+    android:layout_marginHorizontal="15dp"
+    android:background="@android:color/background_dark">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="2dp"
+        android:background="@android:color/background_light"
+        app:cardCornerRadius="5dp"
+        app:cardMaxElevation="5dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@android:color/background_dark">
+
+            <TextView
+                android:id="@+id/tvCountryName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:text="@string/tv_country_name"
+                android:maxLines="2"
+                android:fontFamily="sans-serif"
+                android:textAlignment="center"
+                android:textColor="@android:color/background_light"
+                android:textSize="20sp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <ImageView
+                    android:id="@+id/imgCountriesFlag"
+                    android:layout_width="0dp"
+                    android:layout_height="80dp"
+                    android:scaleType="fitXY"
+                    android:layout_weight="1"
+                    android:contentDescription="@string/country_flag_images" />
+
+                <LinearLayout
+                    android:id="@+id/tvTitleContainer"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:orientation="vertical"
+                    android:layout_marginHorizontal="10dp"
+                    android:weightSum="3">
+
+                    <LinearLayout
+                        android:id="@+id/tvCountryTotalCaseContainer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginVertical="5dp">
+
+                        <TextView
+                            android:id="@+id/titleCountryCases"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="@string/tv_country_totalcase"
+                            android:maxLines="1"
+                            android:fontFamily="sans-serif"
+                            android:textColor="@android:color/background_light"
+                            android:textSize="14sp"
+                            android:textStyle="bold"/>
+
+                        <TextView
+                            android:id="@+id/tvCountryCases"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginHorizontal="5dp"
+                            android:fontFamily="sans-serif"
+                            android:text="@string/cases"
+                            android:textColor="@android:color/background_light"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/tvCountryRecoveredCaseContainer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/titleCountryRecovered"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="@string/tv_country_recoveredcase"
+                            android:maxLines="1"
+                            android:fontFamily="sans-serif"
+                            android:textColor="@android:color/background_light"
+                            android:textSize="14sp"
+                            android:textStyle="bold"/>
+
+                        <TextView
+                            android:id="@+id/tvCountryRecovered"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginHorizontal="5dp"
+                            android:fontFamily="sans-serif"
+                            android:text="@string/recover"
+                            android:textColor="#02FF0C"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:id="@+id/tvCountryDeathCaseContainer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginVertical="5dp">
+
+                        <TextView
+                            android:id="@+id/titleCountryDeath"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="@string/tv_country_deathcase"
+                            android:maxLines="1"
+                            android:fontFamily="sans-serif"
+                            android:textColor="@android:color/background_light"
+                            android:textSize="14sp"
+                            android:textStyle="bold"/>
+
+                        <TextView
+                            android:id="@+id/tvCountryDeath"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginHorizontal="5dp"
+                            android:fontFamily="sans-serif"
+                            android:text="@string/death"
+                            android:textColor="#FF0000"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/horizontalDivider"
+                android:layout_width="match_parent"
+                android:layout_height="1.5dp"
+                android:layout_marginTop="5dp"
+                android:background="@android:color/background_light" />
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+</LinearLayout>

@@ -2,9 +2,11 @@ package com.example.covid19tracking.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.covid19tracking.R;
 import com.example.covid19tracking.activities.CountryDetailActivity;
 import com.example.covid19tracking.api.CountryResult;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -31,7 +34,7 @@ public class CountryDataAdapter extends RecyclerView.Adapter<CountryDataAdapter.
     @Override
     public CountryDataAdapter.DataViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType){
         return new DataViewHolder(LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_container, parent, false));
+                .inflate(R.layout.country_item_container, parent, false));
     }
 
     @Override
@@ -44,13 +47,15 @@ public class CountryDataAdapter extends RecyclerView.Adapter<CountryDataAdapter.
 
     static class DataViewHolder extends RecyclerView.ViewHolder{
         private final TextView tvCountryName, tvTotalCase, tvDeath, tvRecover;
+        private final ImageView imgCountryFlag;
 
         DataViewHolder(@NonNull View itemView){
             super(itemView);
-            tvCountryName = itemView.findViewById(R.id.tvContinentName);
-            tvTotalCase = itemView.findViewById(R.id.tvContinentCases);
-            tvDeath = itemView.findViewById(R.id.tvContinentDeath);
-            tvRecover = itemView.findViewById(R.id.tvContinentRecovered);
+            tvCountryName = itemView.findViewById(R.id.tvCountryName);
+            tvTotalCase = itemView.findViewById(R.id.tvCountryCases);
+            tvDeath = itemView.findViewById(R.id.tvCountryDeath);
+            tvRecover = itemView.findViewById(R.id.tvCountryRecovered);
+            imgCountryFlag = itemView.findViewById(R.id.imgCountriesFlag);
         }
 
         void bindItem(CountryResult countryResult, Context context){
@@ -67,6 +72,9 @@ public class CountryDataAdapter extends RecyclerView.Adapter<CountryDataAdapter.
             int recoveredCase = countryResult.getRecovered();
             String mRecoveredCase = String.format(Locale.US, "%,d",recoveredCase).replace(',','.');
             setHtmlText(tvRecover, mRecoveredCase);
+
+            Uri flagUrl = Uri.parse(countryResult.getGlobalDetail().getFlagsURL());
+            Picasso.get().load(flagUrl).into(imgCountryFlag);
 
             itemView.setOnClickListener(v -> {
                 Intent countryDetail = new Intent(context, CountryDetailActivity.class);

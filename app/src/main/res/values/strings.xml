@@ -56,10 +56,10 @@
     <string name="total_recovered">Total Recovered</string>
     <string name="sort">Sort</string>
     <string name="tv_continent_name">Continent Name</string>
-    <string name="tv_continent_totalcase">Total Cases :</string>
-    <string name="tv_continent_activecase">Active Cases :</string>
-    <string name="tv_continent_deathcase">Total Death :</string>
-    <string name="tv_continent_recoveredcase">Total Recovered :</string>
+    <string name="tv_continent_totalcase">Total Case  :</string>
+    <string name="tv_continent_activecase">Active Case :</string>
+    <string name="tv_continent_deathcase">Death Case :</string>
+    <string name="tv_continent_recoveredcase">Recovered  :</string>
     <string name="continent_country_list">Continent Country List</string>
     <string name="country_name">Country Name</string>
     <string name="country_continent">Country Continent</string>
@@ -67,9 +67,10 @@
     <string name="country_flags">Country Flags</string>
     <string name="country_flag">Country Flag</string>
     <string name="tv_country_name">Country Name</string>
-    <string name="tv_country_totalcase">Country Total Case</string>
-    <string name="tv_country_activecase">Country Active Case</string>
-    <string name="tv_country_deathcase">Country Death</string>
+    <string name="tv_country_totalcase">Total Case  :</string>
+    <string name="tv_country_activecase">Active Case :</string>
+    <string name="tv_country_deathcase">Death Case :</string>
     <string name="other_country_case">Other Country Case</string>
-    <string name="tv_country_recoveredcase">Country Recovered</string>
+    <string name="tv_country_recoveredcase">Recovered  :</string>
+    <string name="country_flag_images">Country Flag Images</string>
 </resources>

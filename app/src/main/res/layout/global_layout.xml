@@ -22,12 +22,12 @@
         android:id="@+id/rvCountryData"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:scrollbars="vertical"
         android:orientation="vertical"
         android:overScrollMode="never"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/item_container"/>
+        tools:listitem="@layout/country_item_container"/>
 
     <ProgressBar
         android:id="@+id/loadingCountryData"
