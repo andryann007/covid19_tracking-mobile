@@ -63,7 +63,6 @@ public class GlobalFragment extends Fragment {
         apiService = retrofit.create(ApiService.class);
         globalDataResults = new ArrayList<>();
 
-        getSpinnerData(root);
         getCountriesData(root);
 
         return root;
@@ -80,18 +79,18 @@ public class GlobalFragment extends Fragment {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if(position == 0){
+                /*if(position == 0){
                     sortCountriesByCase(view);
                 } else if (position == 1){
                     sortCountriesByRecovered(view);
                 } else {
                     sortCountriesByDeath(view);
-                }
+                }*/
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
+                /*getCountriesData(view);*/
             }
         });
     }

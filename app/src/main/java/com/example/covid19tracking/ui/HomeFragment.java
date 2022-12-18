@@ -79,13 +79,13 @@ public class HomeFragment extends Fragment {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if(position == 0){
+                /*if(position == 0){
                     sortContinentByCase(view);
                 } else if (position == 1){
                     sortContinentByRecovered(view);
                 } else {
                     sortContinentByDeath(view);
-                }
+                }*/
             }
 
             @Override
