@@ -63,36 +63,8 @@ public class HomeFragment extends Fragment {
         continentDataResults = new ArrayList<>();
 
         getContinentsData(root);
-        getSpinnerData(root);
 
         return root;
-    }
-
-    private void getSpinnerData(View view){
-        spinner = view.findViewById(R.id.spinnerSort);
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item,
-                sortText);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                /*if(position == 0){
-                    sortContinentByCase(view);
-                } else if (position == 1){
-                    sortContinentByRecovered(view);
-                } else {
-                    sortContinentByDeath(view);
-                }*/
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
     }
 
     private void getContinentsData(View view){

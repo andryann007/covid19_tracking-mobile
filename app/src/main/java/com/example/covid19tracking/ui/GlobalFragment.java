@@ -68,33 +68,6 @@ public class GlobalFragment extends Fragment {
         return root;
     }
 
-    private void getSpinnerData(View view){
-        spinner = view.findViewById(R.id.spinnerSort);
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item,
-                sortText);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                /*if(position == 0){
-                    sortCountriesByCase(view);
-                } else if (position == 1){
-                    sortCountriesByRecovered(view);
-                } else {
-                    sortCountriesByDeath(view);
-                }*/
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                /*getCountriesData(view);*/
-            }
-        });
-    }
-
     private void getCountriesData(View view){
         RecyclerView rvGlobalData = view.findViewById(R.id.rvCountryData);
         loadingGlobalData = view.findViewById(R.id.loadingCountryData);
