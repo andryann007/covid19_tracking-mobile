@@ -82,4 +82,16 @@
     <string name="today_recovered">Today Recovered :</string>
     <string name="today_death">Today Death :</string>
     <string name="total_population">Total Population :</string>
+    <string name="sort_continents_countries_data">Sort Continents / Countries Data</string>
+    <string name="title_select_sort_type">Select Sort Type :</string>
+    <string name="select_sort_type">Select Sort Type</string>
+    <string name="title_sort_data_by">Sort Data By :</string>
+    <string name="sort_data_by">Sort Data By</string>
+    <string name="sort_data">Sort Data</string>
+    <string name="search_continents_countries">Search Continents / Countries</string>
+    <string name="title_select_search_type">Select Search Type</string>
+    <string name="select_search_type">Select Search Type</string>
+    <string name="title_input_search">Input Search :</string>
+    <string name="search_data">Search Data</string>
+    <string name="input_search">Input Search</string>
 </resources>
