@@ -3,6 +3,7 @@ package com.example.covid19tracking.activities;
 import android.annotation.SuppressLint;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -64,12 +65,15 @@ public class CountryDetailActivity extends AppCompatActivity {
         String allowNull = "false";
         String strict = "false";
 
+        binding.loadingDetails.setVisibility(View.VISIBLE);
+
         Call<CountryResult> call = apiService.getCountriesDetail(country, yesterday, twoDaysAgo,
                 strict, allowNull);
         call.enqueue(new Callback<CountryResult>() {
             @Override
             public void onResponse(@NonNull Call<CountryResult> call, @NonNull Response<CountryResult> response) {
                 if(response.body() != null){
+                    binding.loadingDetails.setVisibility(View.GONE);
                     binding.toolbar.setTitle(response.body().getCountry() + " Detail");
 
                     Uri countryFlagURL = Uri.parse(response.body().getGlobalDetail().getFlagsURL());

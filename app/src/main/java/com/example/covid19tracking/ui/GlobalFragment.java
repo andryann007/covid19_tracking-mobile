@@ -5,8 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -34,7 +32,6 @@ public class GlobalFragment extends Fragment {
 
     private FragmentGlobalBinding binding;
 
-    private ProgressBar loadingGlobalData;
     private CountryDataAdapter countryDataAdapter;
     private ArrayList<CountryResult> globalDataResults;
 
@@ -66,7 +63,7 @@ public class GlobalFragment extends Fragment {
 
     private void getCountriesData(View view){
         RecyclerView rvGlobalData = view.findViewById(R.id.rvCountryData);
-        loadingGlobalData = view.findViewById(R.id.loadingCountryData);
+        binding.loadingCountryData.setVisibility(View.VISIBLE);
 
         Call<ArrayList<CountryResult>> call = apiService.getCountriesData(yesterday, twoDaysAgo, allowNull);
         call.enqueue(new Callback<ArrayList<CountryResult>>(){
@@ -74,7 +71,7 @@ public class GlobalFragment extends Fragment {
             @Override
             public void onResponse(@NonNull Call<ArrayList<CountryResult>> call, @NonNull Response<ArrayList<CountryResult>> response) {
                 if(response.isSuccessful()){
-                    loadingGlobalData.setVisibility(View.GONE);
+                    binding.loadingCountryData.setVisibility(View.GONE);
                     globalDataResults = response.body();
 
                     for(int i = 0; i < Objects.requireNonNull(globalDataResults).size(); i++){
@@ -96,7 +93,6 @@ public class GlobalFragment extends Fragment {
     private void sortCountriesByCase(View view){
         sortBy = "cases";
         RecyclerView rvGlobalData = view.findViewById(R.id.rvCountryData);
-        loadingGlobalData = view.findViewById(R.id.loadingCountryData);
 
         Call<ArrayList<CountryResult>> call = apiService.sortCountries(yesterday, twoDaysAgo, sortBy, allowNull);
         call.enqueue(new Callback<ArrayList<CountryResult>>(){
@@ -104,7 +100,6 @@ public class GlobalFragment extends Fragment {
             @Override
             public void onResponse(@NonNull Call<ArrayList<CountryResult>> call, @NonNull Response<ArrayList<CountryResult>> response) {
                 if(response.isSuccessful()){
-                    loadingGlobalData.setVisibility(View.GONE);
                     globalDataResults = response.body();
 
                     for(int i = 0; i < Objects.requireNonNull(globalDataResults).size(); i++){
@@ -127,7 +122,6 @@ public class GlobalFragment extends Fragment {
     private void sortCountriesByRecovered(View view){
         sortBy = "recovered";
         RecyclerView rvGlobalData = view.findViewById(R.id.rvCountryData);
-        loadingGlobalData = view.findViewById(R.id.loadingCountryData);
 
         Call<ArrayList<CountryResult>> call = apiService.sortCountries(yesterday, twoDaysAgo, sortBy, allowNull);
         call.enqueue(new Callback<ArrayList<CountryResult>>(){
@@ -135,7 +129,6 @@ public class GlobalFragment extends Fragment {
             @Override
             public void onResponse(@NonNull Call<ArrayList<CountryResult>> call, @NonNull Response<ArrayList<CountryResult>> response) {
                 if(response.isSuccessful()){
-                    loadingGlobalData.setVisibility(View.GONE);
                     globalDataResults = response.body();
 
                     for(int i = 0; i < Objects.requireNonNull(globalDataResults).size(); i++){
@@ -158,7 +151,6 @@ public class GlobalFragment extends Fragment {
     private void sortCountriesByDeath(View view){
         sortBy = "deaths";
         RecyclerView rvGlobalData = view.findViewById(R.id.rvCountryData);
-        loadingGlobalData = view.findViewById(R.id.loadingCountryData);
 
         Call<ArrayList<CountryResult>> call = apiService.sortCountries(yesterday, twoDaysAgo, sortBy, allowNull);
         call.enqueue(new Callback<ArrayList<CountryResult>>(){
@@ -166,7 +158,6 @@ public class GlobalFragment extends Fragment {
             @Override
             public void onResponse(@NonNull Call<ArrayList<CountryResult>> call, @NonNull Response<ArrayList<CountryResult>> response) {
                 if(response.isSuccessful()){
-                    loadingGlobalData.setVisibility(View.GONE);
                     globalDataResults = response.body();
 
                     for(int i = 0; i < Objects.requireNonNull(globalDataResults).size(); i++){

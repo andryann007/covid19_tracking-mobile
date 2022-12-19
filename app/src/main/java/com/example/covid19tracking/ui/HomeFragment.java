@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -31,8 +30,6 @@ public class HomeFragment extends Fragment {
     private ApiService apiService;
 
     private FragmentHomeBinding binding;
-
-    private ProgressBar loadingContinentsData;
     private ContinentDataAdapter continentDataAdapter;
     private ArrayList<ContinentResult> continentDataResults;
 
@@ -64,7 +61,7 @@ public class HomeFragment extends Fragment {
 
     private void getContinentsData(View view){
         RecyclerView rvContinentsData = view.findViewById(R.id.rvContinentData);
-        loadingContinentsData = view.findViewById(R.id.loadingContinentData);
+        binding.loadingContinentData.setVisibility(View.VISIBLE);
 
         Call<ArrayList<ContinentResult>> call = apiService.getContinentsData(yesterday, twoDaysAgo, allowNull);
         call.enqueue(new Callback<ArrayList<ContinentResult>>(){
@@ -73,7 +70,7 @@ public class HomeFragment extends Fragment {
             public void onResponse(@NonNull Call<ArrayList<ContinentResult>> call,
                                    @NonNull Response<ArrayList<ContinentResult>> response) {
                 if(response.isSuccessful()){
-                    loadingContinentsData.setVisibility(View.GONE);
+                    binding.loadingContinentData.setVisibility(View.GONE);
                     continentDataResults = response.body();
 
                     for(int i = 0; i < Objects.requireNonNull(continentDataResults).size(); i++){
@@ -95,7 +92,6 @@ public class HomeFragment extends Fragment {
     private void sortContinentByCase(View view){
         sortBy = "cases";
         RecyclerView rvContinentsData = view.findViewById(R.id.rvContinentData);
-        loadingContinentsData = view.findViewById(R.id.loadingContinentData);
 
         Call<ArrayList<ContinentResult>> call = apiService.sortContinent(yesterday, twoDaysAgo, sortBy, allowNull);
         call.enqueue(new Callback<ArrayList<ContinentResult>>(){
@@ -104,7 +100,6 @@ public class HomeFragment extends Fragment {
             public void onResponse(@NonNull Call<ArrayList<ContinentResult>> call,
                                    @NonNull Response<ArrayList<ContinentResult>> response) {
                 if(response.isSuccessful()){
-                    loadingContinentsData.setVisibility(View.GONE);
                     continentDataResults = response.body();
 
                     for(int i = 0; i < Objects.requireNonNull(continentDataResults).size(); i++){
@@ -127,7 +122,6 @@ public class HomeFragment extends Fragment {
     private void sortContinentByRecovered(View view){
         sortBy = "recovered";
         RecyclerView rvContinentsData = view.findViewById(R.id.rvContinentData);
-        loadingContinentsData = view.findViewById(R.id.loadingContinentData);
 
         Call<ArrayList<ContinentResult>> call = apiService.sortContinent(yesterday, twoDaysAgo, sortBy, allowNull);
         call.enqueue(new Callback<ArrayList<ContinentResult>>(){
@@ -136,7 +130,6 @@ public class HomeFragment extends Fragment {
             public void onResponse(@NonNull Call<ArrayList<ContinentResult>> call,
                                    @NonNull Response<ArrayList<ContinentResult>> response) {
                 if(response.isSuccessful()){
-                    loadingContinentsData.setVisibility(View.GONE);
                     continentDataResults = response.body();
 
                     for(int i = 0; i < Objects.requireNonNull(continentDataResults).size(); i++){
@@ -159,7 +152,6 @@ public class HomeFragment extends Fragment {
     private void sortContinentByDeath(View view){
         sortBy = "deaths";
         RecyclerView rvContinentsData = view.findViewById(R.id.rvContinentData);
-        loadingContinentsData = view.findViewById(R.id.loadingContinentData);
 
         Call<ArrayList<ContinentResult>> call = apiService.sortContinent(yesterday, twoDaysAgo, sortBy, allowNull);
         call.enqueue(new Callback<ArrayList<ContinentResult>>(){
@@ -168,7 +160,6 @@ public class HomeFragment extends Fragment {
             public void onResponse(@NonNull Call<ArrayList<ContinentResult>> call,
                                    @NonNull Response<ArrayList<ContinentResult>> response) {
                 if(response.isSuccessful()){
-                    loadingContinentsData.setVisibility(View.GONE);
                     continentDataResults = response.body();
 
                     for(int i = 0; i < Objects.requireNonNull(continentDataResults).size(); i++){

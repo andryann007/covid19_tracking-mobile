@@ -2,6 +2,7 @@ package com.example.covid19tracking.activities;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -62,12 +63,15 @@ public class ContinentDetailActivity extends AppCompatActivity {
         String yesterday = "false";
         String allowNull = "false";
         String strict = "false";
+        binding.loadingDetails.setVisibility(View.VISIBLE);
+
         Call<ContinentResult> call = apiService.getContinentsDetail(continent, yesterday, twoDaysAgo,
                 strict, allowNull);
         call.enqueue(new Callback<ContinentResult>() {
             @Override
             public void onResponse(@NonNull Call<ContinentResult> call, @NonNull Response<ContinentResult> response) {
                 if(response.body() != null){
+                    binding.loadingDetails.setVisibility(View.GONE);
                     binding.toolbar.setTitle(response.body().getContinent() + " Continent Detail");
 
                     setTitleText(binding.textContinentName, response.body().getContinent());
