@@ -46,13 +46,14 @@ public class CountryDataAdapter extends RecyclerView.Adapter<CountryDataAdapter.
     public int getItemCount(){ return countryResults.size();}
 
     static class DataViewHolder extends RecyclerView.ViewHolder{
-        private final TextView tvCountryName, tvTotalCase, tvDeath, tvRecover;
+        private final TextView tvCountryName, tvTotalCase, tvActiveCase, tvDeath, tvRecover;
         private final ImageView imgCountryFlag;
 
         DataViewHolder(@NonNull View itemView){
             super(itemView);
             tvCountryName = itemView.findViewById(R.id.tvCountryName);
             tvTotalCase = itemView.findViewById(R.id.tvCountryCases);
+            tvActiveCase = itemView.findViewById(R.id.tvCountryActiveCases);
             tvDeath = itemView.findViewById(R.id.tvCountryDeath);
             tvRecover = itemView.findViewById(R.id.tvCountryRecovered);
             imgCountryFlag = itemView.findViewById(R.id.imgCountriesFlag);
@@ -64,6 +65,10 @@ public class CountryDataAdapter extends RecyclerView.Adapter<CountryDataAdapter.
             int totalCase = countryResult.getGlobalCases();
             String mTotalCase = String.format(Locale.US, "%,d",totalCase).replace(',','.');
             setHtmlText(tvTotalCase, mTotalCase);
+
+            int activeCase = countryResult.getActive();
+            String mActiveCase = String.format(Locale.US, "%,d",activeCase).replace(',','.');
+            setHtmlText(tvActiveCase, mActiveCase);
 
             int deathCase = countryResult.getDeaths();
             String mDeathCase = String.format(Locale.US, "%,d",deathCase).replace(',','.');

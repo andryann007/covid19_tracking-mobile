@@ -43,12 +43,13 @@ public class ContinentDataAdapter extends RecyclerView.Adapter<ContinentDataAdap
     public int getItemCount(){ return continentResults.size();}
 
     static class DataViewHolder extends RecyclerView.ViewHolder{
-        private final TextView tvContinentName, tvTotalCase, tvDeath, tvRecover;
+        private final TextView tvContinentName, tvTotalCase, tvActiveCase, tvDeath, tvRecover;
 
         DataViewHolder(@NonNull View itemView){
             super(itemView);
             tvContinentName = itemView.findViewById(R.id.tvContinentName);
             tvTotalCase = itemView.findViewById(R.id.tvContinentCases);
+            tvActiveCase = itemView.findViewById(R.id.tvContinentActiveCases);
             tvDeath = itemView.findViewById(R.id.tvContinentDeath);
             tvRecover = itemView.findViewById(R.id.tvContinentRecovered);
         }
@@ -59,6 +60,10 @@ public class ContinentDataAdapter extends RecyclerView.Adapter<ContinentDataAdap
             int totalCase = continent.getContinentCases();
             String mTotalCase = String.format(Locale.US, "%,d",totalCase).replace(',','.');
             setHtmlText(tvTotalCase, mTotalCase);
+
+            int activeCase = continent.getActive();
+            String mActiveCase = String.format(Locale.US, "%,d",activeCase).replace(',','.');
+            setHtmlText(tvActiveCase, mActiveCase);
 
             int deathCase = continent.getDeaths();
             String mDeathCase = String.format(Locale.US, "%,d",deathCase).replace(',','.');

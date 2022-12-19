@@ -94,4 +94,6 @@
     <string name="title_input_search">Input Search :</string>
     <string name="search_data">Search Data</string>
     <string name="input_search">Input Search</string>
+    <string name="case_total">Total Case</string>
+    <string name="case_active">Active Case</string>
 </resources>

@@ -4,6 +4,7 @@
     android:id="@+id/fragmentGlobal"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/background_dark"
     tools:context=".ui.GlobalFragment">
 
     <androidx.core.widget.NestedScrollView
@@ -15,7 +16,7 @@
         android:id="@+id/contentView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginHorizontal="10dp"
+        android:layout_marginHorizontal="2dp"
         android:orientation="vertical">
 
         <include
