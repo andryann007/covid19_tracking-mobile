@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.covid19tracking.R;
 import com.example.covid19tracking.databinding.ActivityLoginBinding;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -63,7 +64,7 @@ public class LoginActivity extends AppCompatActivity {
         binding.clearBtn.setOnClickListener(view -> clear());
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(com.firebase.ui.auth.R.string.default_web_client_id))
+                .requestIdToken(getString(R.string.web_client_id))
                 .requestEmail()
                 .build();
 

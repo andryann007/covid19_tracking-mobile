@@ -67,7 +67,7 @@ public class RegisterActivity extends AppCompatActivity {
         binding.backBtn.setOnClickListener(view -> back());
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(com.firebase.ui.auth.R.string.default_web_client_id))
+                .requestIdToken(getString(R.string.web_client_id))
                 .requestEmail()
                 .build();
 
