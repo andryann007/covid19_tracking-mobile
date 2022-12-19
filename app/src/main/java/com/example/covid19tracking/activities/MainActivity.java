@@ -117,6 +117,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onOptionsItemSelected(MenuItem item){
         if (item.getItemId() == R.id.nav_search) {
 
+        } else if (item.getItemId() == R.id.nav_sort){
+
         }
         return super.onOptionsItemSelected(item);
     }

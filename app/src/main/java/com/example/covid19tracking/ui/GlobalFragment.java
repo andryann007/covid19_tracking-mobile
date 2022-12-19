@@ -5,8 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -39,12 +37,10 @@ public class GlobalFragment extends Fragment {
     private ProgressBar loadingGlobalData;
     private CountryDataAdapter countryDataAdapter;
     private ArrayList<CountryResult> globalDataResults;
-    private Spinner spinner;
 
     private final String yesterday = "false";
     private final String twoDaysAgo = "false";
     private final String allowNull = "false";
-    String[] sortText = {"Cases", "Recovered", "Deaths"};
     String sortBy;
 
     public GlobalFragment() {
