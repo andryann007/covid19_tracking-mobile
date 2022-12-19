@@ -121,6 +121,20 @@ public class CountryDetailActivity extends AppCompatActivity {
                     int activeCase = response.body().getActive();
                     String mActiveCase = String.format(Locale.US, "%,d",activeCase).replace(',','.');
                     setCaseText(binding.textCountryActiveCase, mActiveCase);
+
+                    binding.titlePercentageCountry.setText(String.format("%s COVID-19 Percentage", response.body().getCountry()));
+
+                    double percentActiveCase = ((double) activeCase / (double) totalCase) * 100;
+                    double percentDeathCase = ((double) deathCase / (double) totalCase) * 100;
+                    double percentRecoveredCase = ((double) recoveredCase / (double) totalCase) * 100;
+
+                    String mPercentActiveCase = String.format(Locale.US, "%.2f", percentActiveCase);
+                    String mPercentDeathCase = String.format(Locale.US, "%.2f", percentDeathCase);
+                    String mPercentRecoveredCase = String.format(Locale.US, "%.2f", percentRecoveredCase);
+
+                    setPercentText(binding.percentCountryActiveCases, mPercentActiveCase);
+                    setPercentText(binding.percentCountryDeath, mPercentDeathCase);
+                    setPercentText(binding.percentCountryRecovered, mPercentRecoveredCase);
                 }
             }
 
@@ -141,5 +155,9 @@ public class CountryDetailActivity extends AppCompatActivity {
 
     private void setTitleText(TextView tv, String textValue){
         tv.setText(HtmlCompat.fromHtml("<b>" + textValue + "</b> COVID-19 Case", HtmlCompat.FROM_HTML_MODE_LEGACY));
+    }
+
+    private void setPercentText(TextView tv, String textValue){
+        tv.setText(HtmlCompat.fromHtml("<b>" + textValue + "</b> %", HtmlCompat.FROM_HTML_MODE_LEGACY));
     }
 }

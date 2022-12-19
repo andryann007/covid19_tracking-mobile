@@ -30,7 +30,7 @@
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginHorizontal="15dp"
+        android:layout_marginHorizontal="5dp"
         android:layout_below="@+id/toolbar">
 
         <LinearLayout android:id="@+id/contentLayout"
@@ -73,7 +73,7 @@
                     android:text="@string/continent"
                     android:fontFamily="sans-serif"
                     android:textColor="@android:color/background_light"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/textCountryContinent"
@@ -103,7 +103,7 @@
                     android:text="@string/last_data_updated"
                     android:fontFamily="sans-serif"
                     android:textColor="@android:color/background_light"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/textCountryUpdatedTime"
@@ -133,7 +133,7 @@
                     android:text="@string/total_population"
                     android:fontFamily="sans-serif"
                     android:textColor="@android:color/background_light"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/textCountryPopulation"
@@ -162,7 +162,7 @@
                     android:text="@string/tv_continent_totalcase"
                     android:fontFamily="sans-serif"
                     android:textColor="@android:color/background_light"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/textCountryTotalCase"
@@ -191,7 +191,7 @@
                     android:text="@string/today_case"
                     android:fontFamily="sans-serif"
                     android:textColor="@android:color/background_light"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/textCountryTodayCase"
@@ -220,7 +220,7 @@
                     android:text="@string/tv_continent_recoveredcase"
                     android:fontFamily="sans-serif"
                     android:textColor="@android:color/background_light"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/textCountryRecovered"
@@ -249,7 +249,7 @@
                     android:text="@string/today_recovered"
                     android:fontFamily="sans-serif"
                     android:textColor="@android:color/background_light"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/textCountryTodayRecovered"
@@ -278,7 +278,7 @@
                     android:text="@string/tv_continent_deathcase"
                     android:fontFamily="sans-serif"
                     android:textColor="@android:color/background_light"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/textCountryDeath"
@@ -307,7 +307,7 @@
                     android:text="@string/today_death"
                     android:fontFamily="sans-serif"
                     android:textColor="@android:color/background_light"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/textCountryTodayDeath"
@@ -336,7 +336,7 @@
                     android:text="@string/tv_continent_activecase"
                     android:fontFamily="sans-serif"
                     android:textColor="@android:color/background_light"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/textCountryActiveCase"
@@ -346,6 +346,144 @@
                     android:fontFamily="sans-serif"
                     android:textColor="@android:color/background_light"
                     android:textSize="16sp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/containerPercentage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical"
+                android:background="@drawable/background_cardview">
+
+                <TextView
+                    android:id="@+id/titlePercentageCountry"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:text="@string/tv_country_name"
+                    android:maxLines="2"
+                    android:fontFamily="sans-serif"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/background_light"
+                    android:textSize="20sp"/>
+
+                <LinearLayout
+                    android:id="@+id/horizontalLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:weightSum="3"
+                    android:background="@drawable/background_button"
+                    android:orientation="horizontal"
+                    android:baselineAligned="false">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginHorizontal="2dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/background_dropdown"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/case_active"
+                            android:maxLines="1"
+                            android:fontFamily="sans-serif"
+                            android:textAlignment="center"
+                            android:textColor="@android:color/background_dark"
+                            android:textSize="14sp"
+                            android:textStyle="bold"/>
+
+                        <View
+                            android:id="@+id/horizontalDivider1"
+                            android:layout_width="match_parent"
+                            android:layout_height="2dp"
+                            android:background="@android:color/background_dark" />
+
+                        <TextView android:id="@+id/percentCountryActiveCases"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:fontFamily="sans-serif"
+                            android:gravity="center"
+                            android:textColor="@android:color/background_dark"
+                            android:textSize="18sp"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginHorizontal="2dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/background_dropdown"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/recover"
+                            android:maxLines="1"
+                            android:fontFamily="sans-serif"
+                            android:textAlignment="center"
+                            android:textColor="@android:color/background_dark"
+                            android:textSize="14sp"
+                            android:textStyle="bold"/>
+
+                        <View
+                            android:id="@+id/horizontalDivider3"
+                            android:layout_width="match_parent"
+                            android:layout_height="2dp"
+                            android:background="@android:color/background_dark" />
+
+                        <TextView android:id="@+id/percentCountryRecovered"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:fontFamily="sans-serif"
+                            android:gravity="center"
+                            android:textColor="#0A910F"
+                            android:textSize="18sp"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginHorizontal="2dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/background_dropdown"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/death"
+                            android:maxLines="1"
+                            android:fontFamily="sans-serif"
+                            android:textAlignment="center"
+                            android:textColor="@android:color/background_dark"
+                            android:textSize="14sp"
+                            android:textStyle="bold"/>
+
+                        <View
+                            android:id="@+id/horizontalDivider4"
+                            android:layout_width="match_parent"
+                            android:layout_height="2dp"
+                            android:background="@android:color/background_dark" />
+
+                        <TextView android:id="@+id/percentCountryDeath"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:fontFamily="sans-serif"
+                            android:gravity="center"
+                            android:textColor="#FF0000"
+                            android:textSize="18sp"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
             </LinearLayout>
         </LinearLayout>
 
