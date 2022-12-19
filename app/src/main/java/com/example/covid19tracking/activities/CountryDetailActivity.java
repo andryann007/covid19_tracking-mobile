@@ -11,6 +11,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.text.HtmlCompat;
 
+import com.anychart.AnyChart;
+import com.anychart.AnyChartView;
+import com.anychart.chart.common.dataentry.DataEntry;
+import com.anychart.chart.common.dataentry.ValueDataEntry;
+import com.anychart.charts.Pie;
 import com.example.covid19tracking.R;
 import com.example.covid19tracking.api.ApiClient;
 import com.example.covid19tracking.api.ApiService;
@@ -19,7 +24,9 @@ import com.example.covid19tracking.databinding.ActivityCountryDetailBinding;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import retrofit2.Call;
@@ -34,6 +41,8 @@ public class CountryDetailActivity extends AppCompatActivity {
     private ApiService apiService;
 
     private String country;
+
+    private AnyChartView anyChartView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +59,7 @@ public class CountryDetailActivity extends AppCompatActivity {
         country = getIntent().getStringExtra("country_name");
 
         binding.toolbar.setOnClickListener(v-> onBackPressed());
+        anyChartView = findViewById(R.id.countryPieChart);
 
         setContinentDetail();
     }
@@ -135,6 +145,18 @@ public class CountryDetailActivity extends AppCompatActivity {
                     setPercentText(binding.percentCountryActiveCases, mPercentActiveCase);
                     setPercentText(binding.percentCountryDeath, mPercentDeathCase);
                     setPercentText(binding.percentCountryRecovered, mPercentRecoveredCase);
+
+                    String[] index = {"Active Case", "Recovered Case","Death Case"};
+                    int[] indexData = {activeCase, recoveredCase, deathCase};
+                    Pie pie = AnyChart.pie();
+                    List<DataEntry> dataEntryList = new ArrayList<>();
+
+                    for(int i=0; i < index.length; i++){
+                        dataEntryList.add(new ValueDataEntry(index[i], indexData[i]));
+                    }
+                    pie.data(dataEntryList);
+                    pie.title("COVID-19 Percentage In " + response.body().getContinent());
+                    anyChartView.setChart(pie);
                 }
             }
 

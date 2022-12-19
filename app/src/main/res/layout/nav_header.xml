@@ -7,7 +7,7 @@
     android:gravity="bottom"
     android:layout_height="175dp">
 
-    <com.makeramen.roundedimageview.RoundedImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imageProfile"
         android:layout_width="80dp"
         android:layout_height="80dp"

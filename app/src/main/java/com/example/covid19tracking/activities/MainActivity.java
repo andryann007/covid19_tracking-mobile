@@ -30,10 +30,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.makeramen.roundedimageview.RoundedImageView;
 import com.squareup.picasso.Picasso;
 
 import java.util.Objects;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -137,7 +138,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         String profileImage = ""+snapshot.child("profileImage").getValue();
 
                         //set data to ui
-                        RoundedImageView image_profile = findViewById(R.id.imageProfile);
+                        CircleImageView image_profile = findViewById(R.id.imageProfile);
                         textName = findViewById(R.id.textProfileName);
                         textEmail = findViewById(R.id.textProfileEmail);
 
