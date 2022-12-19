@@ -143,7 +143,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                         textName.setText(name);
                         textEmail.setText(email);
-                        if(profileImage.equals("") || profileImage.equals("2131165363")){
+                        if(profileImage.equals("") || profileImage.equals("2131165357")){
                             image_profile.setImageResource(R.drawable.ic_account);
                         } else {
                             Uri photo_url = Uri.parse(profileImage);
