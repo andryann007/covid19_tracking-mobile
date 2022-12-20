@@ -472,7 +472,7 @@
                 <com.anychart.AnyChartView
                     android:id="@+id/continentPieChart"
                     android:layout_marginVertical="15dp"
-                    android:layout_width="400dp"
+                    android:layout_width="match_parent"
                     android:layout_height="400dp"
                     android:layout_gravity="center_horizontal"/>
 

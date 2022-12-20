@@ -143,16 +143,19 @@ public class ContinentDetailActivity extends AppCompatActivity {
                     setPercentText(binding.percentContinentDeath, mPercentDeathCase);
                     setPercentText(binding.percentContinentRecovered, mPercentRecoveredCase);
 
-                    String[] index = {"Active Case", "Recovered Case","Death Case"};
-                    int[] indexData = {activeCase, recoveredCase, deathCase};
-                    Pie pie = AnyChart.pie();
-                    List<DataEntry> dataEntryList = new ArrayList<>();
+                    double scaledActiveCase = ((double) activeCase / 1000);
+                    double scaledDeathCase = ((double) deathCase / 1000);
+                    double scaledRecoveredCase = ((double) recoveredCase / 1000);
 
-                    for(int i=0; i < index.length; i++){
-                        dataEntryList.add(new ValueDataEntry(index[i], indexData[i]));
-                    }
+                    Pie pie = AnyChart.pie();
+
+                    List<DataEntry> dataEntryList = new ArrayList<>();
+                    dataEntryList.add(new ValueDataEntry("Active Case", scaledActiveCase));
+                    dataEntryList.add(new ValueDataEntry("Recovered Case", scaledRecoveredCase));
+                    dataEntryList.add(new ValueDataEntry("Death Case", scaledDeathCase));
+
                     pie.data(dataEntryList);
-                    pie.title("COVID-19 Percentage In " + response.body().getContinent() + " Continent");
+                    pie.title(response.body().getContinent() + " Continent Case");
                     anyChartView.setChart(pie);
                 }
             }
