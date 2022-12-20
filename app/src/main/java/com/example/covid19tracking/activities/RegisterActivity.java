@@ -21,6 +21,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
@@ -194,8 +195,8 @@ public class RegisterActivity extends AppCompatActivity {
                         assert profileAccount != null;
                         String email = profileAccount.getEmail();
                         Log.d(TAG, "signInWithCredential:success");
-                        HomeMenu();
-                        Toast.makeText(RegisterActivity.this, "LoggedIn\n"+email, Toast.LENGTH_SHORT).show();
+
+                        saveGoogleAccount(profileAccount);
                     } else {
                         Log.d(TAG, "signInWithCredential:failure", task.getException());
                     }
@@ -207,7 +208,45 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
-    private void HomeMenu(){
-        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+    private void saveGoogleAccount(GoogleSignInAccount user) {
+        progressDialog.setMessage("Saving user info...");
+
+        //timestamp
+        long timestamp = System.currentTimeMillis();
+
+        //get current user uid, since user is registered so we can get now
+        assert user != null;
+        String uid = firebaseAuth.getUid();
+        String name = user.getDisplayName();
+        String email = user.getEmail();
+        String photo = String.valueOf(user.getPhotoUrl());
+
+        //setup data to add in db
+        HashMap<String, Object> mHashmap = new HashMap<>();
+        mHashmap.put("uid", uid);
+        mHashmap.put("email", email);
+        mHashmap.put("name", name);
+        mHashmap.put("profileImage", photo);
+        mHashmap.put("timestamp", timestamp);
+
+        //set data to db
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
+        ref.child(uid)
+                .setValue(mHashmap)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        //data added to db
+                        progressDialog.dismiss();
+                        //since user account is created so start dashboard of user
+                        startActivity(new Intent(RegisterActivity.this, MainActivity.class));
+                        Toast.makeText(RegisterActivity.this, "Successfully Sign In With Google !!!", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    //data failed adding to db
+                    progressDialog.dismiss();
+                    Toast.makeText(RegisterActivity.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                });
     }
 }
