@@ -3,9 +3,12 @@ package com.example.covid19tracking.activities;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.text.HtmlCompat;
 
 import com.example.covid19tracking.adapter.ContinentSearchAdapter;
 import com.example.covid19tracking.adapter.CountrySearchAdapter;
@@ -27,7 +30,8 @@ public class SearchActivity extends AppCompatActivity {
     private ApiService apiService;
     private ActivitySearchBinding binding;
 
-    private String query, searchType;
+    private String query;
+    private String searchTypeTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,8 +41,10 @@ public class SearchActivity extends AppCompatActivity {
 
         apiService = ApiClient.getClient().create(ApiService.class);
 
-        query = getIntent().getStringExtra("searchQuery");
-        searchType = getIntent().getStringExtra("searchType");
+        query = getIntent().getStringExtra("searchQuery").toLowerCase();
+        String searchType = getIntent().getStringExtra("searchType").toLowerCase();
+
+        searchTypeTitle = getIntent().getStringExtra("searchQuery");
 
         switch (searchType){
             case "continents":
@@ -69,13 +75,17 @@ public class SearchActivity extends AppCompatActivity {
                 if(response.body() != null){
                     if(response.isSuccessful()){
                         binding.loadingSearch.setVisibility(View.GONE);
-                        binding.searchToolbar.setTitle("You Search " + query + " Continent");
+                        setTitleContinent(binding.searchToolbar, searchTypeTitle);
                         binding.textSearchResult.setText("Here is The Result");
                         continentResult = response.body();
 
                         continentSearchAdapter = new ContinentSearchAdapter(continentResult, SearchActivity.this);
                         binding.rvContinentSearch.setAdapter(continentSearchAdapter);
                     }
+                } else {
+                    binding.loadingSearch.setVisibility(View.GONE);
+                    binding.textNoResults.setVisibility(View.VISIBLE);
+                    setEmptySearchResult(binding.textNoResults, searchTypeTitle);
                 }
             }
 
@@ -84,6 +94,7 @@ public class SearchActivity extends AppCompatActivity {
             public void onFailure(@NonNull Call<ContinentResult> call, @NonNull Throwable t) {
                 binding.loadingSearch.setVisibility(View.GONE);
                 binding.textNoResults.setVisibility(View.VISIBLE);
+                setErrorWhileSearch(binding.textNoResults, searchTypeTitle);
             }
         });
     }
@@ -105,13 +116,17 @@ public class SearchActivity extends AppCompatActivity {
                 if(response.body() != null){
                     if(response.isSuccessful()){
                         binding.loadingSearch.setVisibility(View.GONE);
-                        binding.searchToolbar.setTitle("You Search " + query + " Continent");
+                        setTitleCountry(binding.searchToolbar, searchTypeTitle);
                         binding.textSearchResult.setText("Here is The Result");
                         countryResult = response.body();
 
                         countrySearchAdapter = new CountrySearchAdapter(countryResult, SearchActivity.this);
                         binding.rvCountrySearch.setAdapter(countrySearchAdapter);
                     }
+                } else {
+                    binding.loadingSearch.setVisibility(View.GONE);
+                    binding.textNoResults.setVisibility(View.VISIBLE);
+                    setEmptySearchResult(binding.textNoResults, searchTypeTitle);
                 }
             }
 
@@ -120,7 +135,24 @@ public class SearchActivity extends AppCompatActivity {
             public void onFailure(@NonNull Call<CountryResult> call, @NonNull Throwable t) {
                 binding.loadingSearch.setVisibility(View.GONE);
                 binding.textNoResults.setVisibility(View.VISIBLE);
+                setErrorWhileSearch(binding.textNoResults, searchTypeTitle);
             }
         });
+    }
+
+    private void setTitleContinent(Toolbar toolbar, String textValue){
+        toolbar.setTitle(HtmlCompat.fromHtml("You Search : <b>" + textValue + "</b> Continent", HtmlCompat.FROM_HTML_MODE_LEGACY));
+    }
+
+    private void setTitleCountry(Toolbar toolbar, String textValue){
+        toolbar.setTitle(HtmlCompat.fromHtml("You Search : <b>" + textValue + "</b> Country", HtmlCompat.FROM_HTML_MODE_LEGACY));
+    }
+
+    private void setEmptySearchResult(TextView tv, String textValue){
+        tv.setText(HtmlCompat.fromHtml("Sorry Search Result for <b>" + textValue + "</b> is Empty", HtmlCompat.FROM_HTML_MODE_LEGACY));
+    }
+
+    private void setErrorWhileSearch(TextView tv, String textValue){
+        tv.setText(HtmlCompat.fromHtml("Error Encounter While Searching For <b>" + textValue + "</b>", HtmlCompat.FROM_HTML_MODE_LEGACY));
     }
 }

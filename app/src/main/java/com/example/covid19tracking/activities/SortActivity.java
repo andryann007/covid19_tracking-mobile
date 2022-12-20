@@ -7,6 +7,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.text.HtmlCompat;
 
 import com.example.covid19tracking.adapter.ContinentDataAdapter;
 import com.example.covid19tracking.adapter.CountryDataAdapter;
@@ -99,7 +101,7 @@ public class SortActivity extends AppCompatActivity {
                 binding.rvContinentSort.setVisibility(View.VISIBLE);
 
                 if(response.isSuccessful()){
-                    binding.sortToolbar.setTitle("Continent Data Sort by " + sortBy);
+                    setTitleContinent(binding.sortToolbar, "Total Case");
                     binding.textSort.setVisibility(View.VISIBLE);
                     binding.textContinentData.setVisibility(View.VISIBLE);
                     continentDataResults = response.body();
@@ -134,7 +136,7 @@ public class SortActivity extends AppCompatActivity {
                 binding.rvContinentSort.setVisibility(View.VISIBLE);
 
                 if(response.isSuccessful()){
-                    binding.sortToolbar.setTitle("Continent Data Sort by " + sortBy);
+                    setTitleContinent(binding.sortToolbar, "Active Case");
                     binding.textSort.setVisibility(View.VISIBLE);
                     binding.textContinentData.setVisibility(View.VISIBLE);
                     continentDataResults = response.body();
@@ -143,7 +145,7 @@ public class SortActivity extends AppCompatActivity {
                         continentDataAdapter = new ContinentDataAdapter(continentDataResults, SortActivity.this);
                         binding.rvContinentSort.setAdapter(continentDataAdapter);
                     }
-                    Toast.makeText(SortActivity.this, "Successfully Sorted the Data by Total Case !!!",
+                    Toast.makeText(SortActivity.this, "Successfully Sorted the Data by Active Case !!!",
                             Toast.LENGTH_SHORT).show();
                 }
             }
@@ -169,7 +171,7 @@ public class SortActivity extends AppCompatActivity {
                 binding.rvContinentSort.setVisibility(View.VISIBLE);
 
                 if(response.isSuccessful()){
-                    binding.sortToolbar.setTitle("Continent Data Sort by " + sortBy);
+                    setTitleContinent(binding.sortToolbar, "Recovered");
                     binding.textSort.setVisibility(View.VISIBLE);
                     binding.textContinentData.setVisibility(View.VISIBLE);
                     continentDataResults = response.body();
@@ -178,7 +180,7 @@ public class SortActivity extends AppCompatActivity {
                         continentDataAdapter = new ContinentDataAdapter(continentDataResults, SortActivity.this);
                         binding.rvContinentSort.setAdapter(continentDataAdapter);
                     }
-                    Toast.makeText(SortActivity.this, "Successfully Sorted the Data by Total Case !!!",
+                    Toast.makeText(SortActivity.this, "Successfully Sorted the Data by Recovered !!!",
                             Toast.LENGTH_SHORT).show();
                 }
             }
@@ -204,7 +206,7 @@ public class SortActivity extends AppCompatActivity {
                 binding.rvContinentSort.setVisibility(View.VISIBLE);
 
                 if(response.isSuccessful()){
-                    binding.sortToolbar.setTitle("Continent Data Sort by " + sortBy);
+                    setTitleContinent(binding.sortToolbar, "Death");
                     binding.textSort.setVisibility(View.VISIBLE);
                     binding.textContinentData.setVisibility(View.VISIBLE);
                     continentDataResults = response.body();
@@ -213,7 +215,7 @@ public class SortActivity extends AppCompatActivity {
                         continentDataAdapter = new ContinentDataAdapter(continentDataResults, SortActivity.this);
                         binding.rvContinentSort.setAdapter(continentDataAdapter);
                     }
-                    Toast.makeText(SortActivity.this, "Successfully Sorted the Data by Total Case !!!",
+                    Toast.makeText(SortActivity.this, "Successfully Sorted the Data by Deaths !!!",
                             Toast.LENGTH_SHORT).show();
                 }
             }
@@ -238,7 +240,7 @@ public class SortActivity extends AppCompatActivity {
                 binding.rvCountrySort.setVisibility(View.VISIBLE);
 
                 if(response.isSuccessful()){
-                    binding.sortToolbar.setTitle("Countries Data Sort by " + sortBy);
+                    setTitleCountry(binding.sortToolbar, "Total Case");
                     binding.textSort.setVisibility(View.VISIBLE);
                     binding.textCountryData.setVisibility(View.VISIBLE);
                     globalDataResults = response.body();
@@ -272,7 +274,7 @@ public class SortActivity extends AppCompatActivity {
                 binding.rvCountrySort.setVisibility(View.VISIBLE);
 
                 if(response.isSuccessful()){
-                    binding.sortToolbar.setTitle("Countries Data Sort by " + sortBy);
+                    setTitleCountry(binding.sortToolbar, "Active Case");
                     binding.textSort.setVisibility(View.VISIBLE);
                     binding.textCountryData.setVisibility(View.VISIBLE);
                     globalDataResults = response.body();
@@ -281,7 +283,7 @@ public class SortActivity extends AppCompatActivity {
                         countryDataAdapter = new CountryDataAdapter(globalDataResults, SortActivity.this);
                         binding.rvCountrySort.setAdapter(countryDataAdapter);
                     }
-                    Toast.makeText(SortActivity.this, "Successfully Sorted Data by Total Case !!!",
+                    Toast.makeText(SortActivity.this, "Successfully Sorted Data by Active Case !!!",
                             Toast.LENGTH_SHORT).show();
                 }
             }
@@ -306,7 +308,7 @@ public class SortActivity extends AppCompatActivity {
                 binding.rvCountrySort.setVisibility(View.VISIBLE);
 
                 if(response.isSuccessful()){
-                    binding.sortToolbar.setTitle("Countries Data Sort by " + sortBy);
+                    setTitleCountry(binding.sortToolbar, "Recovered");
                     binding.textSort.setVisibility(View.VISIBLE);
                     binding.textCountryData.setVisibility(View.VISIBLE);
                     globalDataResults = response.body();
@@ -315,7 +317,7 @@ public class SortActivity extends AppCompatActivity {
                         countryDataAdapter = new CountryDataAdapter(globalDataResults, SortActivity.this);
                         binding.rvCountrySort.setAdapter(countryDataAdapter);
                     }
-                    Toast.makeText(SortActivity.this, "Successfully Sorted Data by Total Case !!!",
+                    Toast.makeText(SortActivity.this, "Successfully Sorted Data by Recovered !!!",
                             Toast.LENGTH_SHORT).show();
                 }
             }
@@ -339,7 +341,7 @@ public class SortActivity extends AppCompatActivity {
                 binding.rvCountrySort.setVisibility(View.VISIBLE);
 
                 if(response.isSuccessful()){
-                    binding.sortToolbar.setTitle("Countries Data Sort by " + sortBy);
+                    setTitleCountry(binding.sortToolbar, "Death");
                     binding.textSort.setVisibility(View.VISIBLE);
                     binding.textCountryData.setVisibility(View.VISIBLE);
                     globalDataResults = response.body();
@@ -348,7 +350,7 @@ public class SortActivity extends AppCompatActivity {
                         countryDataAdapter = new CountryDataAdapter(globalDataResults, SortActivity.this);
                         binding.rvCountrySort.setAdapter(countryDataAdapter);
                     }
-                    Toast.makeText(SortActivity.this, "Successfully Sorted Data by Total Case !!!",
+                    Toast.makeText(SortActivity.this, "Successfully Sorted Data by Death !!!",
                             Toast.LENGTH_SHORT).show();
                 }
             }
@@ -359,5 +361,13 @@ public class SortActivity extends AppCompatActivity {
                 Toast.makeText(SortActivity.this, "Fail to Sorted the Data", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void setTitleContinent(Toolbar toolbar, String textValue){
+        toolbar.setTitle(HtmlCompat.fromHtml("Continents Data Sort By <b>" + textValue + "</b>", HtmlCompat.FROM_HTML_MODE_LEGACY));
+    }
+
+    private void setTitleCountry(Toolbar toolbar, String textValue){
+        toolbar.setTitle(HtmlCompat.fromHtml("Countries Data Sort By <b>" + textValue + "</b>", HtmlCompat.FROM_HTML_MODE_LEGACY));
     }
 }
