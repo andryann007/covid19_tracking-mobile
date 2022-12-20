@@ -148,7 +148,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             image_profile.setImageResource(R.drawable.ic_account);
                         } else {
                             Uri photo_url = Uri.parse(profileImage);
-                            Picasso.get().load(photo_url).fit().centerCrop().into(image_profile);
+                            Picasso.get().load(photo_url).into(image_profile);
                         }
                     }
 
