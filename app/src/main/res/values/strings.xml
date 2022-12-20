@@ -99,4 +99,6 @@
     <string name="web_client_id">817774831351-nubo6u8jtkbffl55har20ln56b0k2m12.apps.googleusercontent.com</string>
     <string name="title_nav_home">COVID-19 All Continents Data</string>
     <string name="title_nav_global">COVID-19 All Countries Data</string>
+    <string name="tv_continents">Continents</string>
+    <string name="tv_countries">Countries</string>
 </resources>
