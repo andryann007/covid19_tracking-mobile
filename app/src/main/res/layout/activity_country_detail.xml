@@ -484,14 +484,6 @@
 
                 </LinearLayout>
 
-                <com.anychart.AnyChartView
-                    android:id="@+id/countryPieChart"
-                    android:layout_marginVertical="15dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="400dp"
-                    android:layout_gravity="center_horizontal"
-                    android:visibility="gone"/>
-
             </LinearLayout>
         </LinearLayout>
 

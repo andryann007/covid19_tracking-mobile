@@ -23,8 +23,10 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.text.HtmlCompat;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.covid19tracking.R;
+import com.example.covid19tracking.adapter.CountryDataAdapter;
 import com.example.covid19tracking.api.ApiClient;
 import com.example.covid19tracking.api.ApiService;
 import com.example.covid19tracking.api.CountryResult;
@@ -32,8 +34,10 @@ import com.example.covid19tracking.databinding.ActivityCountryDetailBinding;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;

@@ -101,6 +101,7 @@ public class SortActivity extends AppCompatActivity {
                 binding.rvContinentSort.setVisibility(View.VISIBLE);
 
                 if(response.isSuccessful()){
+                    binding.loadingSort.setVisibility(View.GONE);
                     setTitleContinent(binding.sortToolbar, "Total Case");
                     binding.textSort.setVisibility(View.VISIBLE);
                     binding.textContinentData.setVisibility(View.VISIBLE);
@@ -136,6 +137,7 @@ public class SortActivity extends AppCompatActivity {
                 binding.rvContinentSort.setVisibility(View.VISIBLE);
 
                 if(response.isSuccessful()){
+                    binding.loadingSort.setVisibility(View.GONE);
                     setTitleContinent(binding.sortToolbar, "Active Case");
                     binding.textSort.setVisibility(View.VISIBLE);
                     binding.textContinentData.setVisibility(View.VISIBLE);
@@ -171,6 +173,7 @@ public class SortActivity extends AppCompatActivity {
                 binding.rvContinentSort.setVisibility(View.VISIBLE);
 
                 if(response.isSuccessful()){
+                    binding.loadingSort.setVisibility(View.GONE);
                     setTitleContinent(binding.sortToolbar, "Recovered");
                     binding.textSort.setVisibility(View.VISIBLE);
                     binding.textContinentData.setVisibility(View.VISIBLE);
@@ -206,6 +209,7 @@ public class SortActivity extends AppCompatActivity {
                 binding.rvContinentSort.setVisibility(View.VISIBLE);
 
                 if(response.isSuccessful()){
+                    binding.loadingSort.setVisibility(View.GONE);
                     setTitleContinent(binding.sortToolbar, "Death");
                     binding.textSort.setVisibility(View.VISIBLE);
                     binding.textContinentData.setVisibility(View.VISIBLE);
@@ -240,6 +244,7 @@ public class SortActivity extends AppCompatActivity {
                 binding.rvCountrySort.setVisibility(View.VISIBLE);
 
                 if(response.isSuccessful()){
+                    binding.loadingSort.setVisibility(View.GONE);
                     setTitleCountry(binding.sortToolbar, "Total Case");
                     binding.textSort.setVisibility(View.VISIBLE);
                     binding.textCountryData.setVisibility(View.VISIBLE);
@@ -274,6 +279,7 @@ public class SortActivity extends AppCompatActivity {
                 binding.rvCountrySort.setVisibility(View.VISIBLE);
 
                 if(response.isSuccessful()){
+                    binding.loadingSort.setVisibility(View.GONE);
                     setTitleCountry(binding.sortToolbar, "Active Case");
                     binding.textSort.setVisibility(View.VISIBLE);
                     binding.textCountryData.setVisibility(View.VISIBLE);
@@ -308,6 +314,7 @@ public class SortActivity extends AppCompatActivity {
                 binding.rvCountrySort.setVisibility(View.VISIBLE);
 
                 if(response.isSuccessful()){
+                    binding.loadingSort.setVisibility(View.GONE);
                     setTitleCountry(binding.sortToolbar, "Recovered");
                     binding.textSort.setVisibility(View.VISIBLE);
                     binding.textCountryData.setVisibility(View.VISIBLE);
@@ -341,6 +348,7 @@ public class SortActivity extends AppCompatActivity {
                 binding.rvCountrySort.setVisibility(View.VISIBLE);
 
                 if(response.isSuccessful()){
+                    binding.loadingSort.setVisibility(View.GONE);
                     setTitleCountry(binding.sortToolbar, "Death");
                     binding.textSort.setVisibility(View.VISIBLE);
                     binding.textCountryData.setVisibility(View.VISIBLE);

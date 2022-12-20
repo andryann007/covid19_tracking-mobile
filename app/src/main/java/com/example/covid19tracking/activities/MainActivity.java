@@ -251,20 +251,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             radioSortGroupBy1.setOnCheckedChangeListener((group, checkedId) -> {
                 if(checkedId == R.id.radioButtonSortTotal){
-                    radioSortGroupBy2.setOnCheckedChangeListener(null);
+                    radioSortGroupBy2.clearCheck();
                     sortBy = radioSortByTotal.getText().toString().toLowerCase().replace("total case", "cases");
                 } else if (checkedId == R.id.radioButtonSortActive) {
-                    radioSortGroupBy2.setOnCheckedChangeListener(null);
+                    radioSortGroupBy2.clearCheck();
                     sortBy = radioSortByActive.getText().toString().toLowerCase().replace("active case", "actives");
                 }
             });
 
             radioSortGroupBy2.setOnCheckedChangeListener((group, checkedId) -> {
                 if (checkedId == R.id.radioButtonSortRecovered){
-                    radioSortGroupBy1.setOnCheckedChangeListener(null);
+                    radioSortGroupBy1.clearCheck();
                     sortBy = radioSortByRecovered.getText().toString().toLowerCase();
                 } else if (checkedId == R.id.radioButtonSortDeaths){
-                    radioSortGroupBy1.setOnCheckedChangeListener(null);
+                    radioSortGroupBy1.clearCheck();
                     sortBy = radioSortByDeath.getText().toString().toLowerCase().replace("death", "deaths");
                 }
             });

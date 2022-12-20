@@ -22,17 +22,22 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.text.HtmlCompat;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.covid19tracking.R;
+import com.example.covid19tracking.adapter.CountryFlagAdapter;
 import com.example.covid19tracking.api.ApiClient;
 import com.example.covid19tracking.api.ApiService;
 import com.example.covid19tracking.api.ContinentResult;
+import com.example.covid19tracking.api.CountryResult;
 import com.example.covid19tracking.databinding.ActivityContinentDetailBinding;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -52,6 +57,10 @@ public class ContinentDetailActivity extends AppCompatActivity {
     private String sortType = null;
 
     private String sortBy = null;
+
+    private ArrayList<CountryResult> globalDataResults;
+
+    private CountryFlagAdapter countryFlagAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -137,6 +146,8 @@ public class ContinentDetailActivity extends AppCompatActivity {
                     String mCountryName = Arrays.toString(countryName).replace("[", "")
                             .replace("]", "");
                     setCountryNameText(binding.textCountriesName, mCountryName);
+                    binding.titleContinentCountriesList.setVisibility(View.GONE);
+                    binding.textCountriesName.setVisibility(View.GONE);
 
                     binding.titlePercentageContinent.setText(String.format("%s COVID-19 Percentage", response.body().getContinent()));
 
@@ -151,12 +162,48 @@ public class ContinentDetailActivity extends AppCompatActivity {
                     setPercentText(binding.percentContinentActiveCases, mPercentActiveCase);
                     setPercentText(binding.percentContinentDeath, mPercentDeathCase);
                     setPercentText(binding.percentContinentRecovered, mPercentRecoveredCase);
+
+                    getCountriesFlags(mCountryName);
                 }
             }
 
             @Override
             public void onFailure(@NonNull Call<ContinentResult> call, @NonNull Throwable t) {
 
+            }
+        });
+    }
+
+    private void getCountriesFlags(String queryCountryList){
+        String twoDaysAgo = "false";
+        String yesterday = "false";
+        String allowNull = "false";
+
+        RecyclerView rvCountryFlag = findViewById(R.id.rvCountriesFlag);
+
+        binding.loadingDetails.setVisibility(View.VISIBLE);
+
+        Call<ArrayList<CountryResult>> call = apiService.getCountriesFlag(queryCountryList, yesterday, twoDaysAgo, allowNull);
+        call.enqueue(new Callback<ArrayList<CountryResult>>(){
+
+            @Override
+            public void onResponse(@NonNull Call<ArrayList<CountryResult>> call, @NonNull Response<ArrayList<CountryResult>> response) {
+                if(response.isSuccessful()){
+                    binding.loadingDetails.setVisibility(View.GONE);
+                    globalDataResults = response.body();
+
+                    for(int i = 0; i < Objects.requireNonNull(globalDataResults).size(); i++){
+                        countryFlagAdapter = new CountryFlagAdapter(globalDataResults, ContinentDetailActivity.this);
+                        rvCountryFlag.setAdapter(countryFlagAdapter);
+                    }
+                }
+            }
+
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onFailure(@NonNull Call<ArrayList<CountryResult>> call, @NonNull Throwable t) {
+                Toast.makeText(ContinentDetailActivity.this, "Fail to Fetch https://disease.sh/v3/covid-19/countries data",
+                        Toast.LENGTH_SHORT).show();
             }
         });
     }

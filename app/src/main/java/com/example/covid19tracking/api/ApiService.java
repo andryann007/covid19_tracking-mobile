@@ -48,4 +48,7 @@ public interface ApiService {
             String yesterday, @Query("twoDaysAgo") String twoDaysAgo, @Query("strict")
                                                    String strict, @Query("allowNull") String allowNull);
 
+    @GET("/v3/covid-19/countries/{countries}")
+    Call<ArrayList<CountryResult>> getCountriesFlag(@Path("countries") String countries, @Query("yesterday")
+            String yesterday, @Query("twoDaysAgo") String twoDaysAgo, @Query("allowNull") String allowNull);
 }

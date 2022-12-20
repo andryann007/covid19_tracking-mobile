@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:weightSum="3">
+
+    <LinearLayout
+        android:id="@+id/containerContent"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="3"
+        android:layout_marginHorizontal="5dp"
+        android:layout_marginBottom="5dp"
+        android:orientation="vertical"
+        android:background="@drawable/background_cardview">
+
+
+        <TextView
+            android:id="@+id/countriesName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="2.5dp"
+            android:text="@string/tv_country_name"
+            android:maxLines="2"
+            android:fontFamily="sans-serif"
+            android:textAlignment="center"
+            android:textColor="@android:color/background_light"
+            android:textSize="14sp"/>
+
+        <View
+            android:id="@+id/horizontalDivider"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@android:color/background_light" />
+
+        <ImageView
+            android:id="@+id/countriesFlag"
+            android:layout_width="150dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:scaleType="fitXY"
+            android:contentDescription="@string/country_flag_images"
+            android:layout_marginVertical="5dp"/>
+    </LinearLayout>
+
+</LinearLayout>
