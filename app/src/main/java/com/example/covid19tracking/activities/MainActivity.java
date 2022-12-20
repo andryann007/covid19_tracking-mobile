@@ -42,9 +42,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Locale;
 import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -158,7 +155,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                     }
                 });
-
     }
 
     private void dialogSearch() {
@@ -186,11 +182,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }
             });
 
-            btnSearch.setOnClickListener(view -> doSearch(inputSearch.getText().toString()));
+            btnSearch.setOnClickListener(view -> doSearch(inputSearch.getText().toString().toLowerCase()));
 
             inputSearch.setOnEditorActionListener((v1, actionid, event) -> {
                 if (actionid == EditorInfo.IME_ACTION_GO) {
-                    doSearch(inputSearch.getText().toString());
+                    doSearch(inputSearch.getText().toString().toLowerCase());
                 }
                 return false;
             });
@@ -200,26 +196,26 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void doSearch(String query) {
         if(query.isEmpty()){
-            Toast.makeText(MainActivity.this,"Tidak ada inputan!!!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(),"Tidak ada inputan!!!", Toast.LENGTH_SHORT).show();
         }
 
         if(searchType.isEmpty()){
-            Toast.makeText(MainActivity.this,"Harap pilih tipe search!!!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(),"Harap pilih tipe search!!!", Toast.LENGTH_SHORT).show();
         }
 
-        /*else if (searchType.equals("continents")){
-            Intent i = new Intent(MainActivity.this, SearchContinentsActivity.class);
+        else if (searchType.equals("continents")){
+            Intent i = new Intent(MainActivity.this, SearchActivity.class);
             i.putExtra("searchType", "continents");
             i.putExtra("searchQuery", query);
             startActivity(i);
         }
 
         else if (searchType.equals("countries")){
-            Intent i = new Intent(MainActivity.this, SearchCountryActivity.class);
+            Intent i = new Intent(MainActivity.this, SearchActivity.class);
             i.putExtra("searchType", "countries");
             i.putExtra("searchQuery", query);
             startActivity(i);
-        }*/
+        }
     }
 
     private void dialogSort() {
@@ -253,13 +249,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             radioSortGroupBy.setOnCheckedChangeListener((group, checkedId) -> {
                 if(checkedId == R.id.radioButtonSortTotal){
-                    sortBy = radioSortByTotal.getText().toString().toLowerCase().replace(" ", "_");
+                    sortBy = radioSortByTotal.getText().toString().toLowerCase().replace("total case", "cases");
                 } else if (checkedId == R.id.radioButtonSortActive) {
-                    sortBy = radioSortByActive.getText().toString().toLowerCase().replace(" ", "_");
+                    sortBy = radioSortByActive.getText().toString().toLowerCase().replace("active case ", "actives");
                 } else if (checkedId == R.id.radioButtonSortRecovered){
                     sortBy = radioSortByRecovered.getText().toString().toLowerCase();
                 } else if (checkedId == R.id.radioButtonSortDeaths){
-                    sortBy = radioSortByDeath.getText().toString().toLowerCase();
+                    sortBy = radioSortByDeath.getText().toString().toLowerCase().replace("death", "deaths");
                 }
             });
 
@@ -270,21 +266,52 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void doSort(String query) {
         if(query.isEmpty()){
-            Toast.makeText(MainActivity.this,"Tidak ada inputan!!!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(),"Harap pilih tipe continents / countries!!!", Toast.LENGTH_SHORT).show();
         }
         if(sortType.isEmpty()){
-            Toast.makeText(MainActivity.this,"Harap pilih tipe search!!!", Toast.LENGTH_SHORT).show();
-        } /*else if (sortType.getText().toString().equals("Continent")){
-            Intent i = new Intent(MainActivity.this, SortContinentsActivity.class);
-            i.putExtra("sortType", sortType.getText().toString().toLowerCase());
-            i.putExtra("sortQuery", query);
+            Toast.makeText(getApplicationContext(),"Harap pilih jenis sorting data!!!", Toast.LENGTH_SHORT).show();
+        } else if (sortType.equals("continents")){
+            Intent i = new Intent(MainActivity.this, SortActivity.class);
+            i.putExtra("sortType", "continents");
+
+            switch (sortBy) {
+                case "cases":
+                    i.putExtra("sortBy", "cases");
+                    break;
+                case "actives":
+                    i.putExtra("sortBy", "actives");
+                    break;
+                case "recovered":
+                    i.putExtra("sortBy", "recovered");
+                    break;
+                case "deaths":
+                    i.putExtra("sortBy", "deaths");
+                    break;
+            }
+
             startActivity(i);
-        } else if (sortType.getText().toString().equals("Country")){
-            Intent i = new Intent(MainActivity.this, SortCountriesActivity.class);
-            i.putExtra("sortType", sortType.getText().toString().toLowerCase());
-            i.putExtra("sortQuery", query);
+
+        } else if (sortType.equals("countries")){
+            Intent i = new Intent(MainActivity.this, SortActivity.class);
+            i.putExtra("sortType", "countries");
+
+            switch (sortBy) {
+                case "cases":
+                    i.putExtra("sortBy", "cases");
+                    break;
+                case "actives":
+                    i.putExtra("sortBy", "actives");
+                    break;
+                case "recovered":
+                    i.putExtra("sortBy", "recovered");
+                    break;
+                case "deaths":
+                    i.putExtra("sortBy", "deaths");
+                    break;
+            }
+
             startActivity(i);
-        } */
+        }
     }
 
     @Override

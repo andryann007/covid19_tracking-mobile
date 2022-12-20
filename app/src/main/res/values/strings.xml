@@ -101,4 +101,5 @@
     <string name="title_nav_global">COVID-19 All Countries Data</string>
     <string name="tv_continents">Continents</string>
     <string name="tv_countries">Countries</string>
+    <string name="no_results">No Results !!!, Please Enter Different Keyword</string>
 </resources>
