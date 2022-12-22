@@ -125,7 +125,7 @@ public class SortActivity extends AppCompatActivity {
     }
 
     private void sortContinentByActive(){
-        sortBy = "actives";
+        sortBy = "active";
 
         Call<ArrayList<ContinentResult>> call = apiService.sortContinent(yesterday, twoDaysAgo, sortBy, allowNull);
         call.enqueue(new Callback<ArrayList<ContinentResult>>(){
@@ -268,7 +268,7 @@ public class SortActivity extends AppCompatActivity {
     }
 
     private void sortCountriesByActive(){
-        sortBy = "actives";
+        sortBy = "active";
 
         Call<ArrayList<CountryResult>> call = apiService.sortCountries(yesterday, twoDaysAgo, sortBy, allowNull);
         call.enqueue(new Callback<ArrayList<CountryResult>>(){
