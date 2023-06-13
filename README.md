@@ -11,7 +11,8 @@ This repository contains a collection of code for covid-19 tracking app using da
 
 
 
-3. Continent Detail -> This is Continent Detail, where the covid-19 result in each continent more detailed
+3. Continent Detail -> This is Continent Detail, where the covid-19 tracking data in each continent more detailed
+![Screenshot_2023-06-13-08-55-53-913_com example covid19tracking](https://github.com/andryann007/covid19_tracking-mobile/assets/103846142/1c3f17b2-c846-4554-9d32-8ebe0c40f01e)
 
 
 
@@ -19,3 +20,5 @@ This repository contains a collection of code for covid-19 tracking app using da
 ![Screenshot_2023-06-13-08-52-54-125_com example covid19tracking](https://github.com/andryann007/covid19_tracking-mobile/assets/103846142/7b73188b-b1ae-4414-9e5f-1ccf69f1b156)
 
 
+
+5. Country Detail -> This is Country Detail, where the covid-19 tracking data in each country more detailed
