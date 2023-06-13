@@ -32,4 +32,4 @@ This repository contains a collection of code for covid-19 tracking app using da
 
 
 7. Sort Features -> This is Sort Features, you can sort covid-19 data by sort type & sort category
-
+![Screenshot_2023-06-13-08-56-05-051_com example covid19tracking](https://github.com/andryann007/covid19_tracking-mobile/assets/103846142/252f5502-8515-4312-bde6-7f049829ef2e)
