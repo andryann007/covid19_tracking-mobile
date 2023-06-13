@@ -27,3 +27,9 @@ This repository contains a collection of code for covid-19 tracking app using da
 
 
 6. Search Features -> This is Search Features, you can search covid-19 data by continent / country
+![Screenshot_2023-06-13-08-55-59-770_com example covid19tracking](https://github.com/andryann007/covid19_tracking-mobile/assets/103846142/b0498cb8-649c-45ca-a326-4dca6d16cb6d)
+
+
+
+7. Sort Features -> This is Sort Features, you can sort covid-19 data by sort type & sort category
+
