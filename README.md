@@ -22,3 +22,8 @@ This repository contains a collection of code for covid-19 tracking app using da
 
 
 5. Country Detail -> This is Country Detail, where the covid-19 tracking data in each country more detailed
+![Screenshot_2023-06-13-08-53-41-962_com example covid19tracking](https://github.com/andryann007/covid19_tracking-mobile/assets/103846142/98a788c9-e875-41aa-935d-e054599583a9)
+
+
+
+6. Search Features -> This is Search Features, you can search covid-19 data by continent / country
