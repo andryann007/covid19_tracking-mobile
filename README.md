@@ -6,9 +6,16 @@ This repository contains a collection of code for covid-19 tracking app using da
 
 
 
-2. Continent Data -> This is Continent Data, Where covid-19 data is categorized by each continent in the world
+2. Continent Data -> This is Continent Data, where covid-19 data is grouped by each continent in the world
 ![Screenshot_2023-06-13-08-52-35-379_com example covid19tracking](https://github.com/andryann007/covid19_tracking-mobile/assets/103846142/1e3340e0-bac9-4560-ab9e-de8df8b00330)
 
 
 
-3. Country Data -> This is Continent Data, Where covid-19 data is categorized by each country in the world
+3. Continent Detail -> This is Continent Detail, where the covid-19 result in each continent more detailed
+
+
+
+4. Country Data -> This is Continent Data, Where covid-19 data is grouped by each country in the world
+![Screenshot_2023-06-13-08-52-54-125_com example covid19tracking](https://github.com/andryann007/covid19_tracking-mobile/assets/103846142/7b73188b-b1ae-4414-9e5f-1ccf69f1b156)
+
+
